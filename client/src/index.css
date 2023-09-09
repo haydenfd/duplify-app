@@ -6,5 +6,8 @@
   margin: 0;
   padding:0;
   font-family: 'Open Sans', sans-serif;
-  /* background: radial-gradient(circle at 10% 20%, rgb(0, 0, 0) 0%, rgb(64, 64, 64) 90.2%); */
+}
+
+body {
+  background-image: linear-gradient(to top, #434343 0%, black 80%);
 }

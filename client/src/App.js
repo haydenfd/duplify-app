@@ -1,7 +1,12 @@
 import React, {useEffect} from 'react'
 import { axiosClient } from './utils/axiosConfig';
 import axios from 'axios';
-import { Landing } from './pages';
+import { Home, Landing } from './pages';
+import { 
+  BrowserRouter as Router,
+  Routes, 
+  Route
+} from 'react-router-dom'
 
 function App() {
 
@@ -13,14 +18,18 @@ function App() {
     }
 
   
-
     fetchData()
 
   }, [])
 
   return (
-    <div className='min-h-screen text-black'>
-      <Landing />
+    <div className='min-h-screen text-white'>
+      <Router>
+        <Routes>
+          <Route path="/landing" element={<Landing />} />
+          <Route path='/home' element={<Home />}/>
+        </Routes>
+      </Router>
     </div>
   );
 }
