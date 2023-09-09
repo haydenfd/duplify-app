@@ -26,7 +26,7 @@ export const Landing = () => {
             LANDING
         </motion.h1>
         <button 
-        className='mt-10 p-2 border-b-green-600 bg-green-600 w-[150px] mx-auto rounded-md text-white font-semibold'
+        className='mt-10 p-2 border-b-primaryGreen bg-primaryGreen w-[150px] mx-auto rounded-md text-white text-lg hover:bg-primaryPurple font-semibold'
         onClick={() => handleLoginClick()}
         >
             LOGIN</button>

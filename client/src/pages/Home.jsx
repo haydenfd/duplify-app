@@ -14,7 +14,7 @@ export const Home = () => {
         <input type='text' placeholder='Enter a playlist URL'
         value={searchInput} onChange={(e) => setSearchInput(e.target.value)}
         className='p-2 rounded-md w-3/5 mt-10 text-black text-xl font-semibold border-4 border-black' />
-        <button className='bg-white text-green-500' onClick={() => console.log(searchInput)}>Button</button>
+        <button className='bg-white text-primaryGreen hover:text-primaryPurple' onClick={() => console.log(searchInput)}>Button</button>
     </div>
   )
 }
