@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import { axiosClient } from './utils/axiosConfig';
 import axios from 'axios';
+import { Landing } from './pages';
 
 function App() {
 
@@ -18,8 +19,8 @@ function App() {
   }, [])
 
   return (
-    <div className='min-h-screen bg-primaryGray text-white'>
-      <h1 className="text-3xl font-bold">Hayden</h1>
+    <div className='min-h-screen text-black'>
+      <Landing />
     </div>
   );
 }
