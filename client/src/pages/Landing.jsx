@@ -1,7 +1,13 @@
 import React from 'react'
 import { axiosClient } from '../utils/axiosConfig'
+import { motion } from 'framer-motion'
 
 export const Landing = () => {
+
+    const fadeIn = {
+        hidden: { opacity: 0 }, // Initial state, invisible
+        visible: { opacity: 1 }, // Final state, fully visible
+      };
 
     const handleLoginClick = async () => {
         // axiosClient.get('authorize').then(() => {
@@ -10,7 +16,15 @@ export const Landing = () => {
     }
   return (
     <div className='min-h-screen text-center flex flex-col'>
-        <h1 className='font-bold text-5xl'>LANDING</h1>
+        <motion.h1 
+        className='font-bold text-5xl'
+        initial="hidden"
+        animate="visible"
+        transition={{duration: 1}}
+        variants={fadeIn}
+        >
+            LANDING
+        </motion.h1>
         <button 
         className='mt-10 p-2 border-b-green-600 bg-green-600 w-[150px] mx-auto rounded-md text-white font-semibold'
         onClick={() => handleLoginClick()}
