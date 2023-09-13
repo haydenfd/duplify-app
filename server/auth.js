@@ -14,6 +14,7 @@ const authConfig = {
     scope: 'user-read-private',
     response_type: 'code',
     state: generateRandomState(),
+    redirect_uri: 'http://localhost:8000/callback'
 }
 
 module.exports = authConfig

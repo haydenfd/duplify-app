@@ -12,13 +12,14 @@ function App() {
 
   useEffect(() => {
 
-    let fetchData = async () => {
+    
+    // let fetchData = async () => {
 
-      axiosClient.get('/').then((response) => console.log(response.data))
-    }
+    //   axiosClient.get('/').then((response) => console.log(response.data))
+    // }
 
   
-    fetchData()
+    // fetchData()
 
   }, [])
 
@@ -28,7 +29,7 @@ function App() {
         <Routes>
           <Route path="/landing" element={<Landing />} />
           <Route path='/home' element={<Home />}/>
-          <Route path='/account' element={<Account />} />
+          <Route path='/account' element={<Account />} /> 
         </Routes>
       </Router>
     </div>
