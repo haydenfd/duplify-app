@@ -12,8 +12,8 @@ const origins = {
 }
 
 // Replace with your Spotify app credentials
-const clientId = '678e30c5d52d4c46960ca7221a30a104';
-const clientSecret = '78580fb6985048f5b8f8d1b23a36bcc4';
+const x = '678e30c5d52d4c46960ca7221a30a104';
+const y = '78580fb6985048f5b8f8d1b23a36bcc4';
 const redirectUri = 'http://localhost:8000/callback'; 
 
 const app = express()
@@ -59,7 +59,7 @@ app.get('/callback', async (req, res) => {
         grant_type: 'authorization_code',
       },
       headers: {
-        'Authorization': 'Basic ' + (new Buffer.from(`${clientId}:${clientSecret}`).toString('base64')),
+        'Authorization': 'Basic ' + (new Buffer.from(`${x}:${y}`).toString('base64')),
       },
     };
   
