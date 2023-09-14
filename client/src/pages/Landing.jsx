@@ -1,5 +1,4 @@
 import React from 'react'
-import { axiosClient } from '../utils/axiosConfig'
 import { motion } from 'framer-motion'
 
 export const Landing = () => {

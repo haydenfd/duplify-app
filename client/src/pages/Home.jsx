@@ -1,12 +1,18 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { Nav } from '../components/Nav'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import { UserProfileContext } from '../context'
+import { Form } from '../components/Form'
+import { Button } from '@nextui-org/react'
 
 export const Home = () => {
 
   const [searchInput, setSearchInput] = useState('')
   const [token, setToken] = useState('')
+  const [user, setUser] = useState({})
+  const [profile, setProfile] = useState({})
+  const [playlist, setPlaylist] = useState({})
 
   useEffect(() => {
 
@@ -28,6 +34,7 @@ export const Home = () => {
     axios.get(userProfileEndpoint, axiosConfig)
     .then((response) => {
       console.log(response.data)
+      setUser(response.data)
     })
     .catch((error) => {
       console.error('Error fetching user profile:', error);
@@ -49,7 +56,7 @@ export const Home = () => {
 
     if (match && match[1]) {
       const playlistID = match[1];
-      console.log(token)
+      
       const axiosConfig = {
         headers: {
           Authorization: `Bearer ${Cookies.get('duplify_access_token')}`,
@@ -59,6 +66,7 @@ export const Home = () => {
       await axios.get(`${fetchPlaylistUrl}${playlistID}`, axiosConfig)
       .then((response) => {
         console.log(response.data)
+        setPlaylist(response.data)
       })
     } else {
       console.log("No match found.");
@@ -67,18 +75,22 @@ export const Home = () => {
 
   return (
     <>
-          <div className='text-center'>
-          <Nav/>
-          <div className='mt-10 text-5xl font-bold'>
-              Home
-          </div>
-          <div className='w-full mt-10 flex flex-nowrap gap-4 mx-auto justify-center'>
-            <input type='text' placeholder='Enter a playlist URL'
-            value={searchInput} onChange={(e) => setSearchInput(e.target.value)}
-            className='focus:ring focus:ring-primaryGreen p-2 rounded-xl w-3/5 text-black text-xl font-semibold border-4 border-black ml-0' />
-            <button className='bg-primaryGreen text-white rounded-xl font-bold text-lg py-2 px-4 w-1/10 hover:bg-primaryPurple' onClick={() => handleSearchOnEnter(searchInput)}>Search</button>
-          </div>
-          
+      <div className='text-center'>
+        <Nav/>
+        <h3 className='mt-10 text-4xl font-semibold w-full'>
+            Hi, <h2 className='inline text-primaryGreen'>{user?.display_name}</h2>, what playlists are we cloning today?
+        </h3>
+        <div className='w-full mt-10 flex flex-nowrap gap-4 mx-auto justify-center'>
+          <input type='text' placeholder='Enter a playlist URL'
+          value={searchInput} onChange={(e) => setSearchInput(e.target.value)}
+          className='focus:ring focus:ring-primaryGreen px-2 rounded-xl w-1/2 text-black text-xl font-semibold border-4 border-transparent ml-0 overflow-ellipsis' />
+          <Button className='bg-primaryGreen text-white font-semibold hover:bg-primaryPurple rounded-xl text-lg w-1/10'>
+            Search
+          </Button>
+        </div>
+        <div className='mt-10 w-4/5 mx-auto'>
+          {Object.keys(playlist).length > 0 && <Form playlist={playlist}/>}
+        </div>
       </div>
     </>
   )

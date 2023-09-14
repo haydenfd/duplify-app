@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { axiosClient } from './utils/axiosConfig';
 import { Home, Landing } from './pages';
 import { 
@@ -7,32 +7,27 @@ import {
   Route
 } from 'react-router-dom'
 import { Account } from './pages/Account';
+import { UserProfileContext } from './context';
+import {NextUIProvider} from "@nextui-org/react";
 
 function App() {
 
-  useEffect(() => {
-
-    
-    // let fetchData = async () => {
-
-    //   axiosClient.get('/').then((response) => console.log(response.data))
-    // }
-
-  
-    // fetchData()
-
-  }, [])
+  const [userProfile, setUserProfile] = useState({})
 
   return (
-    <div className='min-h-screen text-white'>
-      <Router>
-        <Routes>
-          <Route path="/landing" element={<Landing />} />
-          <Route path='/home' element={<Home />}/>
-          <Route path='/account' element={<Account />} /> 
-        </Routes>
-      </Router>
-    </div>
+    <NextUIProvider>
+      <UserProfileContext.Provider value={userProfile}>
+        <div className='min-h-screen text-white'>
+          <Router>
+            <Routes>
+              <Route path="/landing" element={<Landing />} />
+              <Route path='/home' element={<Home />}/>
+              <Route path='/account' element={<Account />} /> 
+            </Routes>
+          </Router>
+        </div>
+      </UserProfileContext.Provider>
+    </NextUIProvider>      
   );
 }
 
