@@ -1,18 +1,20 @@
 import React, {useState, useEffect} from 'react'
 import { Nav } from '../components/Nav'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 export const Home = () => {
 
   const [searchInput, setSearchInput] = useState('')
-  const [userProfile, setUserProfile] = useState({})
   const [token, setToken] = useState('')
 
   useEffect(() => {
 
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('access_token');
-    localStorage.setItem("token", token)
+
+    Cookies.set('duplify_access_token', token, {expires: 1/24})
+
     const fetchCurrentUserProfile = async (access_token) => {
 
       const userProfileEndpoint = 'https://api.spotify.com/v1/me';
@@ -50,7 +52,7 @@ export const Home = () => {
       console.log(token)
       const axiosConfig = {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${Cookies.get('duplify_access_token')}`,
         },
       };
   
@@ -74,7 +76,7 @@ export const Home = () => {
             <input type='text' placeholder='Enter a playlist URL'
             value={searchInput} onChange={(e) => setSearchInput(e.target.value)}
             className='focus:ring focus:ring-primaryGreen p-2 rounded-xl w-3/5 text-black text-xl font-semibold border-4 border-black ml-0' />
-            <button className='bg-primaryGreen text-white rounded-xl font-bold text-lg py-2 px-4 w-1/10 hover:bg-primaryPurple' onClick={() => handleSearchOnEnter(searchInput)}>Button</button>
+            <button className='bg-primaryGreen text-white rounded-xl font-bold text-lg py-2 px-4 w-1/10 hover:bg-primaryPurple' onClick={() => handleSearchOnEnter(searchInput)}>Search</button>
           </div>
           
       </div>
