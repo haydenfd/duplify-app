@@ -9,21 +9,28 @@ export const Landing = () => {
       };
 
   return (
-    <div className='min-h-screen text-center flex flex-col'>
+    <div className='min-h-[50rem] text-center flex flex-col justify-center my-auto'>
         <motion.h1 
-        className='font-bold text-5xl'
-        initial="hidden"
-        animate="visible"
-        transition={{duration: 3}}
-        variants={fadeIn}
+        className='font-bold text-7xl tracking-wider uppercase'
+        initial={{ y: '-1000%' }}
+        animate={{ y: 0 }}
+        transition={{ type: 'spring', duration: 2 }}
         >
-            LANDING
+            DUPLIFY
         </motion.h1>
-        <a 
-        className='mt-10 p-2 cursor-pointer border-b-primaryGreen bg-primaryGreen w-[150px] mx-auto rounded-md text-white text-lg hover:bg-primaryPurple font-semibold'
+        <motion.h1 
+        className='font-medium text-3xl mt-6 text-center leading-relaxed'
+        initial={{ y: '-1000%' }}
+        animate={{ y: 0 }}
+        transition={{ type: 'spring', duration: 2 }}
+        >
+            Clone the contents of other Spotify playlists to a personal playlist!
+        </motion.h1>
+        <motion.a initial="hidden" animate="visible" variants={fadeIn} transition={{delay: 1.5, duration: 1 }}
+        className='mt-10 p-4 cursor-pointer border-b-primaryGreen bg-primaryGreen w-[150px] mx-auto rounded-md text-white text-2xl hover:bg-primaryPurple font-semibold'
         href='http://localhost:8000/authorize'
         >
-            LOGIN</a>
+            LOGIN</motion.a>
     </div>
   )
 }

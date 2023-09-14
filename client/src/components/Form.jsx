@@ -15,6 +15,11 @@ export const Form = ({playlist}) => {
     setPlaylistDescription(e.target.value)
   }
 
+  const handleFormSubmit = (e) => {
+
+    alert(`${playlistName}:${playlistDescription}:${playlistVisibility}`)
+  }
+
   return (
     <>
         <div className='w-full bg-black border-4-black bg-opacity-60 rounded-lg px-4 py-6 text-white text-3xl'>
@@ -29,7 +34,7 @@ export const Form = ({playlist}) => {
                 className=' text-lg rounded-md outline-none focus:outline-primaryGreen p-2 w-3/5 font-semibold'
                 placeholder='Give your playlist a name' value={playlistName} onChange={(e) => handlePlaylistNameChange(e)}/>
                 <input type='text'
-                className=' text-lg rounded-md outline-none focus:outline-primaryGreen p-2 w-3/5 font-semibold'
+                className='text-lg rounded-md outline-none focus:outline-primaryGreen p-2 w-3/5 font-semibold'
                 placeholder='How about a description?' value={playlistDescription} onChange={(e) => handlePlaylistDescriptionChange(e)}/>
                 <RadioGroup
                     orientation="horizontal"
@@ -44,7 +49,8 @@ export const Form = ({playlist}) => {
                     <Radio value="public" classNames={{ label: cn("text-white mr-20 text-center font-medium"), control: cn("p-4 bg-primaryGreen border-none outline-none")}}>Public</Radio>
                     <Radio value="private" classNames={{ label: cn("text-white mr-20 text-center font-medium"), control: cn("p-4 bg-primaryGreen border-none outline-none")}}>Private</Radio>
                 </RadioGroup>
-                <Button className='bg-primaryGreen text-white font-semibold hover:bg-primaryPurple text-lg'>
+                <Button onClick={() => handleFormSubmit()}
+                className='bg-primaryGreen text-white font-semibold hover:bg-primaryPurple text-lg'>
                     Make me my playlist!
                 </Button>
                 

@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import { axiosClient } from './utils/axiosConfig';
 import { Home, Landing } from './pages';
 import { 
   BrowserRouter as Router,
@@ -20,7 +19,7 @@ function App() {
         <div className='min-h-screen text-white'>
           <Router>
             <Routes>
-              <Route path="/landing" element={<Landing />} />
+              <Route path="/" element={<Landing />} />
               <Route path='/home' element={<Home />}/>
               <Route path='/account' element={<Account />} /> 
             </Routes>
