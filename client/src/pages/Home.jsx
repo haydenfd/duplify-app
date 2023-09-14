@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import { UserProfileContext } from '../context'
 import { Form } from '../components/Form'
 import { Button } from '@nextui-org/react'
+import { motion } from 'framer-motion'
 
 export const Home = () => {
 
@@ -75,23 +76,28 @@ export const Home = () => {
 
   return (
     <>
-      <div className='text-center'>
+      <motion.div 
+        initial={{ y: '-1000%', opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: 'tween', duration: 1.5 }}
+      className='text-center'>
         <Nav/>
         <h3 className='mt-10 text-4xl font-semibold w-full'>
-            Hi, <h2 className='inline text-primaryGreen'>{user?.display_name}</h2>, what playlists are we cloning today?
+            Hi, <h2 className='inline text-primaryGreen'>{user?.display_name}</h2>. What playlists are we cloning today?
         </h3>
         <div className='w-full mt-10 flex flex-nowrap gap-4 mx-auto justify-center'>
           <input type='text' placeholder='Enter a playlist URL'
           value={searchInput} onChange={(e) => setSearchInput(e.target.value)}
-          className='focus:ring focus:ring-primaryGreen px-2 rounded-xl w-1/2 text-black text-xl font-semibold border-4 border-transparent ml-0 overflow-ellipsis' />
-          <Button className='bg-primaryGreen text-white font-semibold hover:bg-primaryPurple rounded-xl text-lg w-1/10'>
+          className='focus:ring focus:ring-primaryGreen p-2 rounded-xl w-1/2 text-black text-xl font-semibold border-4 border-transparent ml-0 overflow-ellipsis' />
+          <Button onClick={() => handleSearchOnEnter(searchInput)}
+          className='bg-primaryGreen text-white font-semibold hover:bg-primaryPurple rounded-xl text-lg w-1/10 h-1/10'>
             Search
           </Button>
         </div>
         <div className='mt-10 w-4/5 mx-auto'>
           {Object.keys(playlist).length > 0 && <Form playlist={playlist}/>}
         </div>
-      </div>
+      </motion.div>
     </>
   )
 }
