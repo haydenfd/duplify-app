@@ -80,17 +80,17 @@ export const Home = () => {
         initial={{ y: '-1000%', opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'tween', duration: 1.5 }}
-      className='text-center'>
+        className='text-center'>
         <Nav/>
-        <h3 className='mt-10 text-4xl font-semibold w-full'>
+        <h3 className='mt-10 text-xl md:text-3xl font-semibold w-full leading-relaxed'>
             Hi, <h2 className='inline text-primaryGreen'>{user?.display_name}</h2>. What playlists are we cloning today?
         </h3>
         <div className='w-full mt-10 flex flex-nowrap gap-4 mx-auto justify-center'>
           <input type='text' placeholder='Enter a playlist URL'
           value={searchInput} onChange={(e) => setSearchInput(e.target.value)}
-          className='focus:ring focus:ring-primaryGreen p-2 rounded-xl w-1/2 text-black text-xl font-semibold border-4 border-transparent ml-0 overflow-ellipsis' />
-          <Button onClick={() => handleSearchOnEnter(searchInput)}
-          className='bg-primaryGreen text-white font-semibold hover:bg-primaryPurple rounded-xl text-lg w-1/10 h-1/10'>
+          className='outline-none focus:border-primaryGreen p-1 md:p-2 rounded-xl w-3/5 md:w-1/2 text-black text-md md:text-xl font-semibold border-4 border-transparent ml-0 overflow-ellipsis' />
+          <Button onPress={() => handleSearchOnEnter(searchInput)}
+          className='outline-none bg-primaryGreen text-white font-semibold hover:bg-primaryPurple rounded-xl text-md w-1/12 h-1/12 md:text-lg md:w-1/10 md:h-1/10'>
             Search
           </Button>
         </div>
