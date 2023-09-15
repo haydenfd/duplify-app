@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import {RadioGroup, Radio, cn, Button} from "@nextui-org/react";
 import { motion } from 'framer-motion'
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 export const Form = ({playlist}) => {
 
@@ -18,7 +20,30 @@ export const Form = ({playlist}) => {
 
   const handleFormSubmit = (e) => {
 
-    alert(`${playlistName}:${playlistDescription}:${playlistVisibility}`)
+    const uid = Cookies.get('duplify_uid')
+
+    const endpoint = `https://api.spotify.com/v1/users/${uid}/playlists`
+
+    const playlistData = {
+      name: 'My Awesome Playlist',
+      description: 'A collection of my favorite songs',
+      public: true, 
+    };
+
+    axios.post(endpoint, playlistData, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('duplify_access_token')}`,
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
+      console.log('Playlist created:', response.data);
+     
+    })
+    .catch((error) => {
+      console.error('Error creating playlist:', error);
+    });
+   
   }
 
   return (

@@ -14,6 +14,7 @@ export const Home = () => {
   const [user, setUser] = useState({})
   const [profile, setProfile] = useState({})
   const [playlist, setPlaylist] = useState({})
+  const [playlistSongs, setPlaylistSongs] = useState([])
 
   useEffect(() => {
 
@@ -36,6 +37,9 @@ export const Home = () => {
     .then((response) => {
       console.log(response.data)
       setUser(response.data)
+      Cookies.set('duplify_uid', response.data.id, {expires: 1/24})
+
+
     })
     .catch((error) => {
       console.error('Error fetching user profile:', error);
@@ -66,8 +70,14 @@ export const Home = () => {
   
       await axios.get(`${fetchPlaylistUrl}${playlistID}`, axiosConfig)
       .then((response) => {
-        console.log(response.data)
         setPlaylist(response.data)
+
+        for (let x = 0; x < response.data.tracks.items.length; x++)
+        {
+          let updated = [...playlistSongs, response.data.tracks.items[x].track.uri]
+          setPlaylistSongs(updated)
+        }
+        console.log(playlistSongs)
       })
     } else {
       console.log("No match found.");
