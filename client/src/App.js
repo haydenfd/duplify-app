@@ -6,26 +6,23 @@ import {
   Route
 } from 'react-router-dom'
 import { Account } from './pages/Account';
-import { UserProfileContext } from './context';
 import {NextUIProvider} from "@nextui-org/react";
+import { Guide } from './pages/Guide';
 
 function App() {
 
-  const [userProfile, setUserProfile] = useState({})
-
   return (
     <NextUIProvider>
-      <UserProfileContext.Provider value={userProfile}>
         <div className='min-h-screen text-white'>
           <Router>
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route path='/home' element={<Home />}/>
               <Route path='/account' element={<Account />} /> 
+              <Route path='/guide' element={ <Guide />} />
             </Routes>
           </Router>
         </div>
-      </UserProfileContext.Provider>
     </NextUIProvider>      
   );
 }
