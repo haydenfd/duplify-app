@@ -24,7 +24,7 @@ export const Landing = () => {
             DUPLIFY
         </motion.h1>
         <motion.h1 
-        className='font-medium text-xl md:text-3xl mt-6 text-center leading-relaxed px-4'
+        className='font-medium text-xl md:text-3xl mt-6 text-center leading-relaxed px-4 overflow-auto'
         initial={{ y: '-1000%' }}
         animate={{ y: 0 }}
         transition={{ type: 'spring', duration: 2 }}
