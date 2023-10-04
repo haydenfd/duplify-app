@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import { Home, Landing } from './pages';
 import { 
   BrowserRouter as Router,
   Routes, 
   Route
 } from 'react-router-dom'
-import { Account } from './pages/Account';
 import {NextUIProvider} from "@nextui-org/react";
 import { Guide } from './pages/Guide';
 
@@ -18,7 +17,6 @@ function App() {
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route path='/home' element={<Home />}/>
-              <Route path='/account' element={<Account />} /> 
               <Route path='/guide' element={ <Guide />} />
             </Routes>
           </Router>

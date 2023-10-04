@@ -12,10 +12,10 @@ export const Guide = () => {
     transition={{ type: 'tween', duration: 1.5 }}
     className='text-center'>
         <Nav />
-            <div className='text-center mt-10'>
-                <h1 className='text-3xl md:text-5xl font-semibold'>How to <h1 className='text-primaryGreen inline tracking-wider'>Duplify</h1></h1>
-            </div>
-            </motion.div>
+          <div className='text-center mt-10'>
+            <h1 className='text-3xl md:text-5xl font-semibold'>How to <h1 className='text-primaryGreen inline tracking-wider'>Duplify</h1></h1>
+          </div>
+      </motion.div>
     </>
   )
 }

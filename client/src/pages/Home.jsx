@@ -9,9 +9,7 @@ import { motion } from 'framer-motion'
 export const Home = () => {
 
   const [searchInput, setSearchInput] = useState('')
-  const [token, setToken] = useState('')
   const [user, setUser] = useState({})
-  const [profile, setProfile] = useState({})
   const [playlist, setPlaylist] = useState({})
   const [playlistSongs, setPlaylistSongs] = useState([])
 

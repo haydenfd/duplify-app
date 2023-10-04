@@ -24,10 +24,11 @@ export const Form = ({playlist}) => {
 
     const endpoint = `https://api.spotify.com/v1/users/${uid}/playlists`
 
+    const isPublic = playlistVisibility === 'public'? true : false;
     const playlistData = {
-      name: 'My Awesome Playlist',
-      description: 'A collection of my favorite songs',
-      public: true, 
+      name: playlistName,
+      description: playlistDescription,
+      public: isPublic, 
     };
 
     axios.post(endpoint, playlistData, {
@@ -65,7 +66,7 @@ export const Form = ({playlist}) => {
                 placeholder='Give your playlist a name' value={playlistName} onChange={(e) => handlePlaylistNameChange(e)}/>
                 <input type='text'
                 className='text-lg rounded-md outline-none focus:outline-primaryGreen p-2 w-3/5 font-semibold'
-                placeholder='How about a description?' value={playlistDescription} onChange={(e) => handlePlaylistDescriptionChange(e)}/>
+                placeholder='How about a description? (Optional)' value={playlistDescription} onChange={(e) => handlePlaylistDescriptionChange(e)}/>
                 <RadioGroup
                     orientation="horizontal"
                     label="Make your playlist public or private?"
