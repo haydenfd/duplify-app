@@ -49,37 +49,75 @@ export const Home = () => {
     }
   }, [])
 
-  const handleSearchOnEnter = async (playlist_url) => {
+  const retrievePlaylist = async (playlist_url) => {
 
-    const fetchPlaylistUrl = 'https://api.spotify.com/v1/playlists/'
-    const regexPattern = /playlist\/([^/]+)\?/;
+    const re = /playlist\/([^/]+)\?/
+    const retrievePlaylistUrl = 'https://api.spotify.com/v1/playlists/'
 
-    const match = playlist_url.match(regexPattern)
+    const match=playlist_url.match(re)
 
-    if (match && match[1]) {
-      const playlistID = match[1];
-      
+    let playlistID = null
+
+    if (match)
+    {
+      playlistID = match[1]
       const axiosConfig = {
         headers: {
           Authorization: `Bearer ${Cookies.get('duplify_access_token')}`,
         },
       };
-  
-      await axios.get(`${fetchPlaylistUrl}${playlistID}`, axiosConfig)
-      .then((response) => {
-        setPlaylist(response.data)
 
-        for (let x = 0; x < response.data.tracks.items.length; x++)
-        {
-          let updated = [...playlistSongs, response.data.tracks.items[x].track.uri]
-          setPlaylistSongs(updated)
-        }
-        console.log(playlistSongs)
+      await axios.get(`${retrievePlaylistUrl}${playlistID}`, axiosConfig).then((res) => {
+
+        let array = res.data.tracks.items
+        let len = array.length
+
+        array.forEach((item) => {
+          console.log([...playlistSongs, item.track.uri])
+          setPlaylistSongs([...playlistSongs, item.track.uri])
+        })
+
       })
-    } else {
-      console.log("No match found.");
+
+      
+
     }
   }
+
+
+
+  // const handleSearchOnEnter = async (playlist_url) => {
+
+  //   const fetchPlaylistUrl = 'https://api.spotify.com/v1/playlists/'
+  //   const regexPattern = /playlist\/([^/]+)\?/;
+
+  //   const match = playlist_url.match(regexPattern)
+
+  //   if (match && match[1]) {
+  //     const playlistID = match[1];
+      
+      // const axiosConfig = {
+      //   headers: {
+      //     Authorization: `Bearer ${Cookies.get('duplify_access_token')}`,
+      //   },
+      // };
+  
+      // await axios.get(`${fetchPlaylistUrl}${playlistID}`, axiosConfig)
+  //     .then((response) => {
+  //       console.log(response.data)
+  //       setPlaylist(response.data)
+
+  //       for (let x = 0; x < response.data.tracks.items.length; x++)
+  //       {
+  //         let updated = [...playlistSongs, response.data.tracks.items[x].track.uri]
+  //         setPlaylistSongs(updated)
+  //       }
+  //       console.log(playlistSongs)
+  //     })
+  //   } else {
+  //     console.log("No match found.");
+  //   }
+  // }
 
   return (
     <>
@@ -96,7 +134,7 @@ export const Home = () => {
           <input type='text' placeholder='Enter a playlist URL'
           value={searchInput} onChange={(e) => setSearchInput(e.target.value)}
           className='outline-none focus:border-primaryGreen p-1 md:p-2 rounded-xl w-3/5 md:w-1/2 text-black text-md md:text-xl font-semibold border-4 border-transparent ml-0 overflow-ellipsis' />
-          <Button onPress={() => handleSearchOnEnter(searchInput)}
+          <Button onPress={() => retrievePlaylist(searchInput)}
           className='outline-none bg-primaryGreen text-white font-semibold hover:bg-primaryPurple rounded-xl text-md w-1/12 h-1/12 md:text-lg md:w-1/10 md:h-1/10'>
             Search
           </Button>

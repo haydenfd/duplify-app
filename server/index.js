@@ -3,8 +3,6 @@ const express = require("express")
 const cors = require("cors")
 const axios = require("axios")
 
-// const authConfig = require('./auth')
-
 const origins = {
     origin: "*",
 }

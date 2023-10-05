@@ -5,8 +5,8 @@ import { Button } from '@nextui-org/react'
 export const Landing = () => {
 
     const fadeIn = {
-        hidden: { opacity: 0 }, // Initial state, invisible
-        visible: { opacity: 1 }, // Final state, fully visible
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
       };
 
     const OauthRedirect = () => {
