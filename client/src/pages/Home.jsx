@@ -79,11 +79,27 @@ export const Home = () => {
 
       })
 
-      
-
     }
   }
 
+
+  const searchPlaylistById = async (url) => {
+
+    const re = /playlist\/([^/]+)\?/
+
+    const match = url.match(re)
+
+    if (match && match[1])
+    {
+      const _id = match[1]
+      console.log(_id)
+      const endpoint = `http://localhost:8000/playlist?token=${Cookies.get('duplify_access_token')}&pid=${_id}`
+      await fetch(endpoint).then((res) => res.json()).then(data => {
+        console.log(data)
+        setPlaylist(data.data)
+      })
+    }
+  }
 
 
   // const handleSearchOnEnter = async (playlist_url) => {
@@ -134,7 +150,7 @@ export const Home = () => {
           <input type='text' placeholder='Enter a playlist URL'
           value={searchInput} onChange={(e) => setSearchInput(e.target.value)}
           className='outline-none focus:border-primaryGreen p-1 md:p-2 rounded-xl w-3/5 md:w-1/2 text-black text-md md:text-xl font-semibold border-4 border-transparent ml-0 overflow-ellipsis' />
-          <Button onPress={() => retrievePlaylist(searchInput)}
+          <Button onPress={() => searchPlaylistById(searchInput)}
           className='outline-none bg-primaryGreen text-white font-semibold hover:bg-primaryPurple rounded-xl text-md w-1/12 h-1/12 md:text-lg md:w-1/10 md:h-1/10'>
             Search
           </Button>

@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require("express")
 const cors = require("cors")
 const axios = require("axios")
+const bodyParser =require('body-parser')
 
 const origins = {
     origin: "*",
@@ -14,8 +15,9 @@ const port = process.env.PORT
 
 const app = express()
 
-app.use(express())
+app.use(express.json())
 app.use(cors(origins))
+app.use(bodyParser.json())
 
 function createQueryString(params) {
     return Object.keys(params)
@@ -64,6 +66,44 @@ app.get('/callback', async (req, res) => {
     }
   });
 
+
+app.get('/playlist', async (req, res) => {
+
+  const { token, pid } = req.query
+
+  const fetchPlaylistUrl = 'https://api.spotify.com/v1/playlists/'
+
+  const axiosConfig = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+
+  const response = await axios.get(`${fetchPlaylistUrl}${pid}`, axiosConfig).then((result) => result.data)
+
+  const {
+    name, 
+    tracks,
+    owner,
+    id,
+  } = response
+
+  const projectionObject = { name, owner, tracks, id}
+
+  res.send({
+    data: projectionObject
+  })
+ 
+})
+
+
+app.post('/createPlaylist', async (req, res) => {
+
+  res.send({
+    status: 200
+  })
+  
+})
 
 app.listen(port, () => {
     console.log("Server active!")

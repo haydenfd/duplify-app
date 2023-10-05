@@ -84,7 +84,6 @@ export const Form = ({playlist}) => {
                 className='bg-primaryGreen text-white font-semibold hover:bg-primaryPurple text-lg h-[3rem]'>
                     Make me my playlist!
                 </Button>
-                
             </div>
         </motion.div>
     </>
