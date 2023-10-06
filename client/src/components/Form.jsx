@@ -18,6 +18,20 @@ export const Form = ({playlist}) => {
     setPlaylistDescription(e.target.value)
   }
 
+
+  const handleSubmit = async (e) => {
+
+    const endpoint = `http://localhost:8000/createPlaylist?token=${Cookies.get('duplify_access_token')}&id=${playlist?.id}`
+
+    await fetch(endpoint, {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json',
+      }, 
+      body: JSON.stringify({'Test': 123}),
+    }).then((res) => res.json()).then(data => console.log(data))
+  }
+
   const handleFormSubmit = (e) => {
 
     const uid = Cookies.get('duplify_uid')
@@ -80,7 +94,7 @@ export const Form = ({playlist}) => {
                     <Radio value="public" classNames={{ label: cn("text-white mr-20 text-center font-medium"), control: cn("p-4 bg-primaryGreen border-none outline-none")}}>Public</Radio>
                     <Radio value="private" classNames={{ label: cn("text-white mr-20 text-center font-medium"), control: cn("p-4 bg-primaryGreen border-none outline-none")}}>Private</Radio>
                 </RadioGroup>
-                <Button onClick={() => handleFormSubmit()}
+                <Button onClick={() => handleSubmit()}
                 className='bg-primaryGreen text-white font-semibold hover:bg-primaryPurple text-lg h-[3rem]'>
                     Make me my playlist!
                 </Button>

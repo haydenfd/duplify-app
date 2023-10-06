@@ -3,6 +3,8 @@ const express = require("express")
 const cors = require("cors")
 const axios = require("axios")
 const bodyParser =require('body-parser')
+const userRouter = require('./routes/user')
+
 
 const origins = {
     origin: "*",
@@ -17,7 +19,7 @@ const app = express()
 
 app.use(express.json())
 app.use(cors(origins))
-app.use(bodyParser.json())
+app.use('/user', userRouter)
 
 function createQueryString(params) {
     return Object.keys(params)
@@ -99,10 +101,14 @@ app.get('/playlist', async (req, res) => {
 
 app.post('/createPlaylist', async (req, res) => {
 
+  const data = req.body
+
+
   res.send({
-    status: 200
+    status: 200,
+    data: data
   })
-  
+
 })
 
 app.listen(port, () => {

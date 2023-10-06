@@ -11,7 +11,21 @@ export const Home = () => {
   const [searchInput, setSearchInput] = useState('')
   const [user, setUser] = useState({})
   const [playlist, setPlaylist] = useState({})
-  const [playlistSongs, setPlaylistSongs] = useState([])
+
+  const getUser = async (access_token) => {
+
+    const getUserEndpoint = `http://localhost:8000/user?access_token=${access_token}`
+
+    await fetch(getUserEndpoint, {
+      method: 'GET', 
+      headers: {
+        'Content-Type': 'application/json',
+      }, 
+    }).then((res) => res.json()).then(data => {
+      setUser(data.user)
+    })
+
+  }
 
   useEffect(() => {
 
@@ -20,67 +34,13 @@ export const Home = () => {
 
     Cookies.set('duplify_access_token', token, {expires: 1/24})
 
-    const fetchCurrentUserProfile = async (access_token) => {
-
-      const userProfileEndpoint = 'https://api.spotify.com/v1/me';
-
-      const axiosConfig = {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      };
-
-    axios.get(userProfileEndpoint, axiosConfig)
-    .then((response) => {
-      console.log(response.data)
-      setUser(response.data)
-      Cookies.set('duplify_uid', response.data.id, {expires: 1/24})
-
-
-    })
-    .catch((error) => {
-      console.error('Error fetching user profile:', error);
-    });
-    }
-
     if (token)
     {
-      fetchCurrentUserProfile(token)
+      getUser(token)
     }
   }, [])
 
-  const retrievePlaylist = async (playlist_url) => {
 
-    const re = /playlist\/([^/]+)\?/
-    const retrievePlaylistUrl = 'https://api.spotify.com/v1/playlists/'
-
-    const match=playlist_url.match(re)
-
-    let playlistID = null
-
-    if (match)
-    {
-      playlistID = match[1]
-      const axiosConfig = {
-        headers: {
-          Authorization: `Bearer ${Cookies.get('duplify_access_token')}`,
-        },
-      };
-
-      await axios.get(`${retrievePlaylistUrl}${playlistID}`, axiosConfig).then((res) => {
-
-        let array = res.data.tracks.items
-        let len = array.length
-
-        array.forEach((item) => {
-          console.log([...playlistSongs, item.track.uri])
-          setPlaylistSongs([...playlistSongs, item.track.uri])
-        })
-
-      })
-
-    }
-  }
 
 
   const searchPlaylistById = async (url) => {
@@ -100,40 +60,6 @@ export const Home = () => {
       })
     }
   }
-
-
-  // const handleSearchOnEnter = async (playlist_url) => {
-
-  //   const fetchPlaylistUrl = 'https://api.spotify.com/v1/playlists/'
-  //   const regexPattern = /playlist\/([^/]+)\?/;
-
-  //   const match = playlist_url.match(regexPattern)
-
-  //   if (match && match[1]) {
-  //     const playlistID = match[1];
-      
-      // const axiosConfig = {
-      //   headers: {
-      //     Authorization: `Bearer ${Cookies.get('duplify_access_token')}`,
-      //   },
-      // };
-  
-      // await axios.get(`${fetchPlaylistUrl}${playlistID}`, axiosConfig)
-  //     .then((response) => {
-  //       console.log(response.data)
-  //       setPlaylist(response.data)
-
-  //       for (let x = 0; x < response.data.tracks.items.length; x++)
-  //       {
-  //         let updated = [...playlistSongs, response.data.tracks.items[x].track.uri]
-  //         setPlaylistSongs(updated)
-  //       }
-  //       console.log(playlistSongs)
-  //     })
-  //   } else {
-  //     console.log("No match found.");
-  //   }
-  // }
 
   return (
     <>
