@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
-export const Form = ({playlist}) => {
+export const Form = ({playlist, user_id}) => {
 
   const [playlistName, setPlaylistName] = useState('')
   const [playlistDescription, setPlaylistDescription] = useState('')
@@ -19,18 +19,40 @@ export const Form = ({playlist}) => {
   }
 
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async () => {
 
-    const endpoint = `http://localhost:8000/createPlaylist?token=${Cookies.get('duplify_access_token')}&id=${playlist?.id}`
+    console.log('Fetched playlist: ' + playlist.id)
+    const endpoint = `http://localhost:8000/playlist/create?token=${Cookies.get('duplify_access_token')}&id=${playlist.id}`
+
+    const body = {
+      user_id,
+      playlistName, 
+      playlistDescription,
+      playlistVisibility: playlistVisibility == "public"? true: false,
+    }
 
     await fetch(endpoint, {
-      method: 'POST', 
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       }, 
-      body: JSON.stringify({'Test': 123}),
-    }).then((res) => res.json()).then(data => console.log(data))
+      body: JSON.stringify(body)
+    }).then((res) => res.json())
+    .then((data) => console.log(data))
   }
+
+  // const handleSubmit = async (e) => {
+
+  //   const endpoint = `http://localhost:8000/createPlaylist?token=${Cookies.get('duplify_access_token')}&id=${playlist?.id}`
+
+  //   await fetch(endpoint, {
+  //     method: 'POST', 
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     }, 
+  //     body: JSON.stringify({'Test': 123}),
+  //   }).then((res) => res.json()).then(data => console.log(data))
+  // }
 
   const handleFormSubmit = (e) => {
 

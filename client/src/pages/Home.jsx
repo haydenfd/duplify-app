@@ -1,6 +1,5 @@
 import React, {useState, useEffect } from 'react'
 import { Nav } from '../components/Nav'
-import axios from 'axios'
 import Cookies from 'js-cookie'
 import { Form } from '../components/Form'
 import { Button } from '@nextui-org/react'
@@ -22,6 +21,7 @@ export const Home = () => {
         'Content-Type': 'application/json',
       }, 
     }).then((res) => res.json()).then(data => {
+      console.log(data.user)
       setUser(data.user)
     })
 
@@ -55,8 +55,8 @@ export const Home = () => {
       console.log(_id)
       const endpoint = `http://localhost:8000/playlist?token=${Cookies.get('duplify_access_token')}&pid=${_id}`
       await fetch(endpoint).then((res) => res.json()).then(data => {
-        console.log(data)
         setPlaylist(data.data)
+        console.log('Fetched playlist: ' + _id)
       })
     }
   }
@@ -82,7 +82,7 @@ export const Home = () => {
           </Button>
         </div>
         <div className='mt-10 w-4/5 mx-auto'>
-          {Object.keys(playlist).length > 0 && <Form playlist={playlist}/>}
+          {Object.keys(playlist).length > 0 && <Form playlist={playlist} user_id={user.id}/>}
         </div>
       </motion.div>
     </>
