@@ -2,9 +2,9 @@ require('dotenv').config()
 const express = require("express")
 const cors = require("cors")
 const axios = require("axios")
-const bodyParser =require('body-parser')
 const userRouter = require('./routes/user')
-
+const oauthRouter = require('./routes/oauth')
+const playlistRouter = require('./routes/playlist')
 
 const origins = {
     origin: "*",
@@ -20,6 +20,8 @@ const app = express()
 app.use(express.json())
 app.use(cors(origins))
 app.use('/user', userRouter)
+app.use('/oauth', oauthRouter)
+app.use('/playlist', playlistRouter)
 
 function createQueryString(params) {
     return Object.keys(params)
@@ -69,34 +71,34 @@ app.get('/callback', async (req, res) => {
   });
 
 
-app.get('/playlist', async (req, res) => {
+// app.get('/playlist', async (req, res) => {
 
-  const { token, pid } = req.query
+//   const { token, pid } = req.query
 
-  const fetchPlaylistUrl = 'https://api.spotify.com/v1/playlists/'
+//   const fetchPlaylistUrl = 'https://api.spotify.com/v1/playlists/'
 
-  const axiosConfig = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }
+//   const axiosConfig = {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   }
 
-  const response = await axios.get(`${fetchPlaylistUrl}${pid}`, axiosConfig).then((result) => result.data)
+//   const response = await axios.get(`${fetchPlaylistUrl}${pid}`, axiosConfig).then((result) => result.data)
 
-  const {
-    name, 
-    tracks,
-    owner,
-    id,
-  } = response
+//   const {
+//     name, 
+//     tracks,
+//     owner,
+//     id,
+//   } = response
 
-  const projectionObject = { name, owner, tracks, id}
+//   const projectionObject = { name, owner, tracks, id}
 
-  res.send({
-    data: projectionObject
-  })
+//   res.send({
+//     data: projectionObject
+//   })
  
-})
+// })
 
 
 app.post('/createPlaylist', async (req, res) => {
