@@ -18,6 +18,7 @@ function App() {
               <Route path="/" element={<Landing />} />
               <Route path='/home' element={<Home />}/>
               <Route path='/guide' element={ <Guide />} />
+              <Route path="/*" element={<div><h1>F</h1></div>} />
             </Routes>
           </Router>
         </div>
