@@ -121,5 +121,5 @@ app.post('/createPlaylist', async (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`Server active on port ${port}; SECRET: ${SPOTIFY_API_CLIENT_SECRET}`)
+    console.log(`Server active on port ${port}; SECRET: ${clientSecret}`)
 })
