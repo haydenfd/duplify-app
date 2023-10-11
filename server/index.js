@@ -33,7 +33,7 @@ function createQueryString(params) {
 
 app.get('/', async (req, res) => {
 
-  res.send({"Test" : "Successful"})
+  res.send({"Test" : "Hayden"})
 })
 
 app.get('/authorize', (req, res) => {
