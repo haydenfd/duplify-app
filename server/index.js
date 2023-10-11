@@ -31,6 +31,11 @@ function createQueryString(params) {
       .join('&');
   }
 
+app.get('/', async (req, res) => {
+
+  res.send({"Test" : "Successful"})
+})
+
 app.get('/authorize', (req, res) => {
     const scopes = ['user-read-private', 'user-read-email', 'playlist-modify-public', 'playlist-modify-private']; // Add more scopes if needed
     const authorizeUrl = `https://accounts.spotify.com/authorize?` +
@@ -116,5 +121,5 @@ app.post('/createPlaylist', async (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log("Server active!")
+    console.log(`Server active on port ${port}`)
 })
