@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@nextui-org/react'
+import { apiEndpoints, baseUrl } from '../utils/api'
 
 export const Landing = () => {
 
@@ -8,7 +9,8 @@ export const Landing = () => {
 
     const test = async () => {
 
-      await fetch("https://duplify-server-401911.wl.r.appspot.com/").then((res) => res.json()).then(data => console.log(data))
+      const url = baseUrl + apiEndpoints.root
+      await fetch(url).then((res) => res.json()).then(data => console.log(data))
     }
     test()
   })
@@ -19,7 +21,7 @@ export const Landing = () => {
       };
 
     const OauthRedirect = () => {
-      window.location.href='https://duplify-server-401911.wl.r.appspot.com/authorize'
+      window.location.href=baseUrl + apiEndpoints.authorize
     }
 
   return (

@@ -1,10 +1,8 @@
-export const baseUrl = 'http://localhost:8000'
+export const baseUrl = 'http://localhost:8080'
 
 export const apiEndpoints = {
-    getUser: '/user'
-}
-
-export const apiEndpointBuilder = (endpoint) => {
-
-    return baseUrl + endpoint
+    root: '/',
+    user: '/user',
+    authorize: '/authorize',
+    fetchPlaylist: '/playlist/'
 }

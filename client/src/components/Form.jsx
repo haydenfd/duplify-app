@@ -98,10 +98,10 @@ export const Form = ({playlist, user_id}) => {
             </div>
             <div className='mt-6 flex flex-col gap-8 items-center text-black'>
                 <input type='text'
-                className=' text-lg rounded-md outline-none focus:outline-primaryGreen p-2 w-3/5 font-semibold'
+                className=' text-lg rounded-md outline-none focus:outline-primaryGreen outline-4 p-2 w-3/5 font-semibold'
                 placeholder='Give your playlist a name' value={playlistName} onChange={(e) => handlePlaylistNameChange(e)}/>
                 <input type='text'
-                className='text-lg rounded-md outline-none focus:outline-primaryGreen p-2 w-3/5 font-semibold'
+                className='text-lg rounded-md outline-none focus:outline-primaryGreen outline-4 p-2 w-3/5 font-semibold'
                 placeholder='How about a description? (Optional)' value={playlistDescription} onChange={(e) => handlePlaylistDescriptionChange(e)}/>
                 <RadioGroup
                     orientation="horizontal"

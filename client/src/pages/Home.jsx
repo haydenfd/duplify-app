@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 import { Form } from '../components/Form'
 import { Button } from '@nextui-org/react'
 import { motion } from 'framer-motion'
+import { apiEndpoints, baseUrl } from '../utils/api'
 
 export const Home = () => {
 
@@ -13,9 +14,9 @@ export const Home = () => {
 
   const getUser = async (access_token) => {
 
-    const getUserEndpoint = `http://localhost:8000/user?access_token=${access_token}`
+    const url = baseUrl + apiEndpoints.user + `?access_token=${access_token}`
 
-    await fetch(getUserEndpoint, {
+    await fetch(url, {
       method: 'GET', 
       headers: {
         'Content-Type': 'application/json',
@@ -41,20 +42,19 @@ export const Home = () => {
   }, [])
 
 
-
-
-  const searchPlaylistById = async (url) => {
+  const searchPlaylistById = async (input_url) => {
 
     const re = /playlist\/([^/]+)\?/
 
-    const match = url.match(re)
+    const match = input_url.match(re)
 
     if (match && match[1])
     {
       const _id = match[1]
       console.log(_id)
-      const endpoint = `http://localhost:8000/playlist?token=${Cookies.get('duplify_access_token')}&pid=${_id}`
-      await fetch(endpoint).then((res) => res.json()).then(data => {
+      const url = baseUrl + apiEndpoints.fetchPlaylist + `?token=${Cookies.get('duplify_access_token')}&pid=${_id}`
+     
+      await fetch(url).then((res) => res.json()).then(data => {
         setPlaylist(data.data)
         console.log('Fetched playlist: ' + _id)
       })
