@@ -1,8 +1,17 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@nextui-org/react'
 
 export const Landing = () => {
+
+  useEffect(() => {
+
+    const test = async () => {
+
+      await fetch("https://duplify-server-401911.wl.r.appspot.com/").then((res) => res.json()).then(data => console.log(data))
+    }
+    test()
+  })
 
     const fadeIn = {
         hidden: { opacity: 0 },
@@ -10,7 +19,7 @@ export const Landing = () => {
       };
 
     const OauthRedirect = () => {
-      window.location.href='http://localhost:8000/authorize'
+      window.location.href='https://duplify-server-401911.wl.r.appspot.com/authorize'
     }
 
   return (

@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require("express")
 const cors = require("cors")
 const axios = require("axios")
-const path = require("path")
 
 const userRouter = require('./routes/user')
 const oauthRouter = require('./routes/oauth')
@@ -14,15 +13,15 @@ const origins = {
 
 const clientId = process.env.SPOTIFY_API_CLIENT_ID
 const clientSecret = process.env.SPOTIFY_API_CLIENT_SECRET
-const redirectUri = process.env.SPOTIFY_API_REDIRECT_URI
-const port = process.env.PORT
+const redirectUri = "https://duplify-server-401911.wl.r.appspot.com/callback"
+const port = process.env.PORT || 8080
 
 const app = express()
 
 app.use(express.json())
 app.use(cors(origins))
 app.use('/user', userRouter)
-app.use('/oauth', oauthRouter)
+// app.use('/oauth', oauthRouter)
 app.use('/playlist', playlistRouter)
 
 function createQueryString(params) {
@@ -33,7 +32,7 @@ function createQueryString(params) {
 
 app.get('/', async (req, res) => {
 
-  res.send({"Test" : "Hayden"})
+  res.send({"Test" : port})
 })
 
 app.get('/authorize', (req, res) => {
@@ -46,7 +45,11 @@ app.get('/authorize', (req, res) => {
         redirect_uri: redirectUri,
       });
   
-    res.redirect(authorizeUrl);
+    try {
+      res.redirect(authorizeUrl);
+    } catch (e) {
+      console.log(e)
+    }
   });
 
 app.get('/callback', async (req, res) => {
@@ -77,37 +80,6 @@ app.get('/callback', async (req, res) => {
     }
   });
 
-
-// app.get('/playlist', async (req, res) => {
-
-//   const { token, pid } = req.query
-
-//   const fetchPlaylistUrl = 'https://api.spotify.com/v1/playlists/'
-
-//   const axiosConfig = {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   }
-
-//   const response = await axios.get(`${fetchPlaylistUrl}${pid}`, axiosConfig).then((result) => result.data)
-
-//   const {
-//     name, 
-//     tracks,
-//     owner,
-//     id,
-//   } = response
-
-//   const projectionObject = { name, owner, tracks, id}
-
-//   res.send({
-//     data: projectionObject
-//   })
- 
-// })
-
-
 app.post('/createPlaylist', async (req, res) => {
 
   const data = req.body
@@ -121,5 +93,5 @@ app.post('/createPlaylist', async (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`Server active on port ${port}; SECRET: ${clientSecret}`)
+    console.log(`Server active on port ${port}`)
 })

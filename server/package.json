@@ -11,6 +11,6 @@
   },
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "cd ./server && node index.js"
+    "start": "node index.js"
   }
 }
