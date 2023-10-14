@@ -3,6 +3,7 @@ import {RadioGroup, Radio, cn, Button} from "@nextui-org/react";
 import { motion } from 'framer-motion'
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { apiEndpoints, baseUrl } from '../utils/api';
 
 export const Form = ({playlist, user_id}) => {
 
@@ -21,8 +22,7 @@ export const Form = ({playlist, user_id}) => {
 
   const handleSubmit = async () => {
 
-    console.log('Fetched playlist: ' + playlist.id)
-    const endpoint = `http://localhost:8000/playlist/create?token=${Cookies.get('duplify_access_token')}&id=${playlist.id}`
+    const url = baseUrl + apiEndpoints.createPlaylist + `?token=${Cookies.get('duplify_access_token')}&id=${playlist.id}`
 
     const body = {
       user_id,
@@ -31,7 +31,7 @@ export const Form = ({playlist, user_id}) => {
       playlistVisibility: playlistVisibility == "public"? true: false,
     }
 
-    await fetch(endpoint, {
+    await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 import {NextUIProvider} from "@nextui-org/react";
 import { Guide } from './pages/Guide';
+import { NotFound } from './pages/NotFound';
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
               <Route path="/" element={<Landing />} />
               <Route path='/home' element={<Home />}/>
               <Route path='/guide' element={ <Guide />} />
-              <Route path="/*" element={<div><h1>F</h1></div>} />
+              <Route path="/*" element={<NotFound />} />
             </Routes>
           </Router>
         </div>

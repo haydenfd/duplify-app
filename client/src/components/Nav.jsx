@@ -9,27 +9,36 @@ import {
   NavbarMenuItem,
   NavbarItem
  } from "@nextui-org/react";
+import Cookies from "js-cookie";
 
 export const Nav = () => {
 
-  const handleLogOut = () => {
-    
+  const logout = () => {
+
+    Cookies.remove('duplify_access_token')
+
   }
 
   return (
+
     <Navbar classNames={ {
       base: cn("bg-primaryGreen p-0 justify-around")
     }}>
-      <NavbarBrand className="text-center">
-        <h1 className="text-2xl md:text-4xl font-semibold tracking-wider p-2 ml-0">DUPLIFY</h1>
+      <NavbarBrand className="text-center bg-red-500">
+        <h1 className="text-2xl md:text-4xl font-semibold tracking-wider p-3 ml-0">DUPLIFY</h1>
       </NavbarBrand>
-      <NavbarContent>
+
+      <NavbarContent className="bg-blue-500 self-end" justify="center">
       <NavbarItem>
-        <Button className="rounded-md text-white bg-transparent hover:bg-primaryPurple text-xl uppercase font-semibold">Guide</Button>
+        <Link href="/guide" className="rounded-md text-white bg-transparent hover:bg-primaryPurple">
+        <Button className="bg-transparent text-white text-xl uppercase font-semibold">Guide</Button>
+        </Link>
       </NavbarItem>
+
       <NavbarItem>
-        <Button onClick={() => handleLogOut()}
-        className="rounded-md text-white bg-transparent hover:bg-primaryPurple text-xl uppercase font-semibold">Logout</Button>
+        <Link href="/" className="rounded-md text-white bg-transparent hover:bg-primaryPurple">
+          <Button onClick={() => logout()} className="rounded-md text-white bg-transparent hover:bg-primaryPurple text-xl uppercase font-semibold">Logout</Button>
+        </Link>
       </NavbarItem>
 
       </NavbarContent>

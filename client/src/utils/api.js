@@ -4,5 +4,8 @@ export const apiEndpoints = {
     root: '/',
     user: '/user',
     authorize: '/authorize',
-    fetchPlaylist: '/playlist/'
+    fetchPlaylist: '/playlist/',
+    createPlaylist: '/playlist/create'
 }
+
+export const clientUrl = 'http://localhost:3000'
