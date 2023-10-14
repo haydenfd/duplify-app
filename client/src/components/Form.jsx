@@ -28,7 +28,7 @@ export const Form = ({playlist, user_id}) => {
       user_id,
       playlistName, 
       playlistDescription,
-      playlistVisibility: playlistVisibility == "public"? true: false,
+      playlistVisibility: playlistVisibility === "public"? true: false,
     }
 
     await fetch(url, {
@@ -40,19 +40,6 @@ export const Form = ({playlist, user_id}) => {
     }).then((res) => res.json())
     .then((data) => console.log(data))
   }
-
-  // const handleSubmit = async (e) => {
-
-  //   const endpoint = `http://localhost:8000/createPlaylist?token=${Cookies.get('duplify_access_token')}&id=${playlist?.id}`
-
-  //   await fetch(endpoint, {
-  //     method: 'POST', 
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     }, 
-  //     body: JSON.stringify({'Test': 123}),
-  //   }).then((res) => res.json()).then(data => console.log(data))
-  // }
 
   const handleFormSubmit = (e) => {
 
