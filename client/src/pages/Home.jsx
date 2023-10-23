@@ -5,6 +5,7 @@ import { Form } from '../components/Form'
 import { Button } from '@nextui-org/react'
 import { motion } from 'framer-motion'
 import { apiEndpoints, baseUrl } from '../utils/api'
+import { validateToken } from '../utils/token'
 
 export const Home = () => {
 
@@ -12,20 +13,29 @@ export const Home = () => {
   const [user, setUser] = useState({})
   const [playlist, setPlaylist] = useState({})
 
-  const getUser = async (access_token) => {
+  const getUser = async () => {
 
-    const url = baseUrl + apiEndpoints.user + `?access_token=${access_token}`
+    validateToken()
+    const access_token = JSON.parse(localStorage.getItem('duplify_token')).token
 
-    await fetch(url, {
-      method: 'GET', 
-      headers: {
-        'Content-Type': 'application/json',
-      }, 
-    }).then((res) => res.json()).then(data => {
-      console.log(data.user)
-      setUser(data.user)
-    })
+    if (access_token) {
 
+      const url = baseUrl + apiEndpoints.user + `?access_token=${access_token}`
+      
+      await fetch(url, {
+        method: 'GET', 
+        headers: {
+          'Content-Type': 'application/json',
+        }, 
+      }).then((res) => res.json()).then(data => {
+        console.log(data.user)
+        setUser(data.user)
+      })
+    }
+
+    else {
+      window.location.href = '/'
+    }
   }
 
   useEffect(() => {
@@ -33,14 +43,20 @@ export const Home = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('access_token');
 
-    Cookies.set('duplify_access_token', token, {expires: 1/24})
+    const duplify_token = token
+    const expiration_time = new Date().getTime() + (59 * 60 * 1000)
 
-    if (token)
-    {
-      getUser(token)
+    const token_data = {
+      token: duplify_token,
+      expiration_time: expiration_time
     }
-  }, [])
 
+    localStorage.setItem('duplify_token', JSON.stringify(token_data))
+
+    getUser()
+
+  }, [])
+ 
 
   const searchPlaylistById = async (input_url) => {
 

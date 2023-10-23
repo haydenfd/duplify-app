@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import {RadioGroup, Radio, cn, Button} from "@nextui-org/react";
 import { motion } from 'framer-motion'
 import Cookies from 'js-cookie';
-import axios from 'axios';
 import { apiEndpoints, baseUrl } from '../utils/api';
 
 export const Form = ({playlist, user_id}) => {
@@ -28,7 +27,7 @@ export const Form = ({playlist, user_id}) => {
       user_id,
       playlistName, 
       playlistDescription,
-      playlistVisibility: playlistVisibility === "public"? true: false,
+      playlistVisibility: playlistVisibility == "public"? true: false,
     }
 
     await fetch(url, {
@@ -38,37 +37,11 @@ export const Form = ({playlist, user_id}) => {
       }, 
       body: JSON.stringify(body)
     }).then((res) => res.json())
-    .then((data) => console.log(data))
+    .then((data) => {
+      console.log(data)
+    })
   }
 
-  const handleFormSubmit = (e) => {
-
-    const uid = Cookies.get('duplify_uid')
-
-    const endpoint = `https://api.spotify.com/v1/users/${uid}/playlists`
-
-    const isPublic = playlistVisibility === 'public'? true : false;
-    const playlistData = {
-      name: playlistName,
-      description: playlistDescription,
-      public: isPublic, 
-    };
-
-    axios.post(endpoint, playlistData, {
-      headers: {
-        Authorization: `Bearer ${Cookies.get('duplify_access_token')}`,
-        'Content-Type': 'application/json',
-      },
-    })
-    .then((response) => {
-      console.log('Playlist created:', response.data);
-     
-    })
-    .catch((error) => {
-      console.error('Error creating playlist:', error);
-    });
-   
-  }
 
   return (
     <>

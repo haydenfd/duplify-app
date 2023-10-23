@@ -125,35 +125,12 @@ playlist.post('/create', async (req, res) => {
     }).then((response) => {
         created_id = response.data.id
         addSongsToPlaylist(created_id,song_uri,token)
-
-        // add tracks to created playlist id
-        // const addSongsEndpoint = `https://api.spotify.com/v1/playlists/${created_id}/tracks`
-        
-        // while (true) {
-
-            // if (song_uri.length > 100)
-            // {
-            //    const list = song_uri.slice(0,100)
-            //    const body = {
-            //     "uris": list
-            //    }
-
-            //    await axios.post(a)
-
-            // }
-
-            // else {
-
-            //     break;
-            // }
-        // }
-
     })
 
 
     res.send({
         data: created_id,
-        "Status": 200
+        songs: song_uri
     })
 })
 
