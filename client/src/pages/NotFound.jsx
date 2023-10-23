@@ -7,6 +7,7 @@ export const NotFound = () => {
   const landingRedirect = () => {
     window.location.href = CLIENT_URL
   }
+  
   return (
     <>
       <div className='text-center pt-10'>
