@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@nextui-org/react'
-import { apiEndpoints, baseUrl } from '../utils/api'
+import { SERVER_ENDPOINTS } from '../utils/api'
 
 export const Landing = () => {
 
@@ -9,9 +9,9 @@ export const Landing = () => {
 
     const test = async () => {
 
-      const url = baseUrl + apiEndpoints.root
-      await fetch(url).then((res) => res.json()).then(data => console.log(data))
+      await fetch(SERVER_ENDPOINTS.ROOT).then((res) => res.json()).then(data => console.log(data))
     }
+
     test()
   })
 
@@ -21,7 +21,8 @@ export const Landing = () => {
       };
 
     const OauthRedirect = () => {
-      window.location.href=baseUrl + apiEndpoints.authorize
+      
+      window.location.href= SERVER_ENDPOINTS.AUTHORIZE
     }
 
   return (

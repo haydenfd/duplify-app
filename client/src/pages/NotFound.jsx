@@ -1,11 +1,11 @@
 import { Button } from '@nextui-org/react'
 import React from 'react'
-import { clientUrl } from '../utils/api'
+import { CLIENT_URL } from '../utils/api'
 
 export const NotFound = () => {
 
   const landingRedirect = () => {
-    window.location.href = clientUrl
+    window.location.href = CLIENT_URL
   }
   return (
     <>

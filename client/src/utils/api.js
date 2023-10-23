@@ -1,11 +1,11 @@
-export const baseUrl = 'http://localhost:8080'
+export const BASE_URL = 'http://localhost:8080'
+export const CLIENT_URL = 'http://localhost:3000'
 
-export const apiEndpoints = {
-    root: '/',
-    user: '/user',
-    authorize: '/authorize',
-    fetchPlaylist: '/playlist/',
-    createPlaylist: '/playlist/create'
+export const SERVER_ENDPOINTS = {
+    ROOT: BASE_URL + '/',
+    USER: BASE_URL + '/user',
+    AUTHORIZE: BASE_URL + '/authorize',
+    FETCH_PLAYLIST: BASE_URL + '/playlist/',
+    CREATE_PLAYLIST: BASE_URL + '/playlist/create',
 }
 
-export const clientUrl = 'http://localhost:3000'

@@ -1,11 +1,10 @@
 import React, {useState, useEffect } from 'react'
 import { Nav } from '../components/Nav'
-import Cookies from 'js-cookie'
 import { Form } from '../components/Form'
 import { Button } from '@nextui-org/react'
 import { motion } from 'framer-motion'
-import { apiEndpoints, baseUrl } from '../utils/api'
 import { validateToken } from '../utils/token'
+import { SERVER_ENDPOINTS } from '../utils/api'
 
 export const Home = () => {
 
@@ -15,12 +14,12 @@ export const Home = () => {
 
   const getUser = async () => {
 
-    validateToken()
-    const access_token = JSON.parse(localStorage.getItem('duplify_token')).token
+    
+    const access_token = validateToken()
 
     if (access_token) {
 
-      const url = baseUrl + apiEndpoints.user + `?access_token=${access_token}`
+      const url = SERVER_ENDPOINTS.USER + `?access_token=${access_token}`
       
       await fetch(url, {
         method: 'GET', 
@@ -39,21 +38,33 @@ export const Home = () => {
   }
 
   useEffect(() => {
+    
+    const urlParams = new URLSearchParams(window.location.search)
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('access_token');
+    if (validateToken()) {
 
-    const duplify_token = token
-    const expiration_time = new Date().getTime() + (59 * 60 * 1000)
-
-    const token_data = {
-      token: duplify_token,
-      expiration_time: expiration_time
+      getUser()
     }
 
-    localStorage.setItem('duplify_token', JSON.stringify(token_data))
+    else if (urlParams.get('access_token')) {
 
-    getUser()
+      const token = urlParams.get('access_token')
+      const duplify_token = token
+      const expiration_time = new Date().getTime() + (59 * 60 * 1000)
+
+      const token_data = {
+        token: duplify_token,
+        expiration_time: expiration_time
+      }
+
+      localStorage.setItem('duplify_token', JSON.stringify(token_data))
+      getUser()
+    }
+
+    else {
+      window.location.href = '/'
+    }
+
 
   }, [])
  
@@ -67,13 +78,20 @@ export const Home = () => {
     if (match && match[1])
     {
       const _id = match[1]
-      console.log(_id)
-      const url = baseUrl + apiEndpoints.fetchPlaylist + `?token=${Cookies.get('duplify_access_token')}&pid=${_id}`
-     
-      await fetch(url).then((res) => res.json()).then(data => {
-        setPlaylist(data.data)
-        console.log('Fetched playlist: ' + _id)
-      })
+      const token = validateToken()
+
+      if (token) {
+
+        const url = SERVER_ENDPOINTS.FETCH_PLAYLIST + `?token=${token}&pid=${_id}`
+        
+        await fetch(url).then((res) => res.json()).then(data => 
+          {
+          setPlaylist(data.data)
+          console.log('Fetched playlist: ' + _id)
+        })
+      } else {
+        window.location.href = '/'
+      }
     }
   }
 
@@ -84,7 +102,7 @@ export const Home = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: 'tween', duration: 1.5 }}
         className='text-center'>
-        <Nav/>
+        {/* <Nav/> */}
         <h3 className='mt-10 text-xl md:text-3xl font-semibold w-full leading-relaxed'>
             Hi, <h2 className='inline text-primaryGreen'>{user?.display_name}</h2>. What playlists are we cloning today?
         </h3>

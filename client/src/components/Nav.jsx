@@ -7,17 +7,16 @@ import {
   cn,
   NavbarItem
  } from "@nextui-org/react";
-import Cookies from "js-cookie";
 import { useLocation } from "react-router-dom";
 
 export const Nav = () => {
 
   const location = useLocation() 
 
-  const logout = () => {
+  const signOut = () => {
 
-    Cookies.remove('duplify_access_token')
-
+    localStorage.removeItem('duplify_token')
+    window.location.href = '/'
   }
 
   return (
@@ -48,7 +47,7 @@ export const Nav = () => {
 
       <NavbarItem>
         <Link href="/" className="rounded-md text-white bg-transparent hover:bg-primaryPurple">
-          <Button onClick={() => logout()} className="rounded-md text-white bg-transparent hover:bg-primaryPurple text-xl uppercase font-semibold">Logout</Button>
+          <Button onClick={() => signOut()} className="rounded-md text-white bg-transparent hover:bg-primaryPurple text-xl uppercase font-semibold">Logout</Button>
         </Link>
       </NavbarItem>
 
