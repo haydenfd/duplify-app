@@ -112,7 +112,7 @@ playlist.post('/create', async (req, res) => {
     const createPlaylistEndpoint = `https://api.spotify.com/v1/users/${data.user_id}/playlists`
 
     await axios.post(createPlaylistEndpoint, {
-        name: data.playlistName || "hello",
+        name: data.playlistName,
         description: data.playlistDescription,
         public: data.playlistVisibility,
     } , {
