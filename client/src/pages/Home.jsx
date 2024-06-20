@@ -57,30 +57,6 @@ export const Home = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   const checkClipboard = async () => {
-  //     try {
-  //       const text = await navigator.clipboard.readText();
-  //       if (isValidSpotifyUrl(text)) {
-  //         setSearchInput(text);
-  //       }
-  //     } catch (err) {
-  //       console.error('Failed to read clipboard contents: ', err);
-  //     }
-  //   };
-
-  //   const handleVisibilityChange = () => {
-  //     if (document.visibilityState === 'visible') {
-  //       setTimeout(checkClipboard, 100);  // Delay to ensure document is focused
-  //     }
-  //   };
-
-  //   document.addEventListener('visibilitychange', handleVisibilityChange);
-
-  //   return () => {
-  //     document.removeEventListener('visibilitychange', handleVisibilityChange);
-  //   };
-  // }, []);
 
   const searchPlaylistById = async (input_url) => {
     if (!isValidSpotifyUrl(input_url)) {
