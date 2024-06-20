@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import { RadioGroup, Radio, cn, Button } from "@nextui-org/react";
+import { RadioGroup, Radio, cn, Button, Input } from "@nextui-org/react";
 import { motion } from 'framer-motion';
 import {
   validateToken,
   BACKEND_ENDPOINTS
 } from '../../Utils';
+import {CustomModal} from '../Modal';
 
 export const Form = ({ playlist, user_id, setIsPlaylistCreationLoading }) => {
   const [playlistName, setPlaylistName] = useState('');
   const [playlistDescription, setPlaylistDescription] = useState('');
   const [playlistVisibility, setPlaylistVisibility] = useState('public');
+  const [isValidPlaylistName, setIsValidPlaylistName] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handlePlaylistNameChange = (e) => {
     setPlaylistName(e.target.value);
@@ -24,8 +27,13 @@ export const Form = ({ playlist, user_id, setIsPlaylistCreationLoading }) => {
     if (!token) {
       window.location.href = '/';
     } else {
-      setIsPlaylistCreationLoading(true); // Set loading to true
-      const id = localStorage.getItem('duplify_playlist_id');
+      if (playlistName.length === 0) {
+        setIsValidPlaylistName(false);
+        return;
+      }
+      setIsValidPlaylistName(true);
+      setIsPlaylistCreationLoading(true);
+      // const id = localStorage.getItem('duplify_playlist_id');
       const url = BACKEND_ENDPOINTS.CREATE_PLAYLIST + `?token=${token}&id=${playlist.id}`;
 
       const body = {
@@ -43,10 +51,13 @@ export const Form = ({ playlist, user_id, setIsPlaylistCreationLoading }) => {
         body: JSON.stringify(body)
       }).then((res) => res.json())
         .then((data) => {
-          setIsPlaylistCreationLoading(false); // Set loading to false when done
-          // Handle the response data
+          setIsPlaylistCreationLoading(false); 
+          setPlaylistName('');
+          setPlaylistDescription('');
+          setIsModalOpen(true);
+     
         }).catch((error) => {
-          setIsPlaylistCreationLoading(false); // Set loading to false in case of an error
+          setIsPlaylistCreationLoading(false);
           console.error('Error creating playlist:', error);
         });
     }
@@ -66,12 +77,18 @@ export const Form = ({ playlist, user_id, setIsPlaylistCreationLoading }) => {
           <h2 className='inline text-primaryGreen'>{playlist?.owner?.display_name} </h2>
           <h2 className='inline bg-gradient-to-r from-purple-700 to-primaryPurple via-primaryGreen  text-transparent bg-clip-text'>({playlist?.tracks?.total} songs)</h2>
         </div>
-        <div className='mt-6 flex flex-col gap-8 items-center text-black'>
+        <div className='mt-6 flex flex-col items-center text-black'>
+    
           <input type='text'
-            className=' text-lg rounded-md outline-none focus:outline-primaryGreen outline-4 p-2 w-3/5 font-semibold'
-            placeholder='Give your playlist a name' value={playlistName} onChange={(e) => handlePlaylistNameChange(e)} />
+            className={`text-lg rounded-md outline-none focus:outline-primaryGreen outline-4 p-2 w-3/5 font-semibold ${!isValidPlaylistName ? 'outline-red-500' : ''}`}
+            placeholder='Give your playlist a name (Required)' value={playlistName} onChange={(e) => handlePlaylistNameChange(e)} />
+            { !isValidPlaylistName && (
+              <div className='w-3/5 '> 
+                <p className='text-[16px] text-red-500 text-left'>Please enter a name</p> 
+              </div>) 
+            }
           <input type='text'
-            className='text-lg rounded-md outline-none focus:outline-primaryGreen outline-4 p-2 w-3/5 font-semibold'
+            className='text-lg mt-8 rounded-md outline-none focus:outline-primaryGreen outline-4 p-2 w-3/5 font-semibold'
             placeholder='How about a description? (Optional)' value={playlistDescription} onChange={(e) => handlePlaylistDescriptionChange(e)} />
           <RadioGroup
             orientation="horizontal"
@@ -92,6 +109,10 @@ export const Form = ({ playlist, user_id, setIsPlaylistCreationLoading }) => {
           </Button>
         </div>
       </motion.div>
+
+      {isModalOpen && (
+        <CustomModal />
+      )}
     </>
   );
 };
