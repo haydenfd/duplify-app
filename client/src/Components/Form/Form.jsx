@@ -29,7 +29,7 @@ export const Form = ({playlist, user_id}) => {
       window.location.href = '/'
 
     } else {
-
+    const id = localStorage.getItem('duplify_playlist_id')
     const url = BACKEND_ENDPOINTS.CREATE_PLAYLIST + `?token=${token}&id=${playlist.id}`
     
     const body = {
@@ -64,7 +64,8 @@ export const Form = ({playlist, user_id}) => {
                 <h2 className='inline'>Clone </h2>
                 <h2 className='text-primaryPurple inline'>{playlist?.name} </h2>
                 <h2 className='inline'>by </h2>
-                <h2 className='inline text-primaryGreen'>{playlist?.owner?.display_name}</h2>
+                <h2 className='inline text-primaryGreen'>{playlist?.owner?.display_name} </h2>
+                <h2 className='inline bg-gradient-to-r from-purple-700 to-primaryPurple via-primaryGreen  text-transparent bg-clip-text'>({playlist?.tracks?.total} songs)</h2>
             </div>
             <div className='mt-6 flex flex-col gap-8 items-center text-black'>
                 <input type='text'

@@ -13,7 +13,7 @@ export const Home = () => {
   const [searchInput, setSearchInput] = useState('')
   const [user, setUser] = useState({})
   const [playlist, setPlaylist] = useState({})
-  const [isInvalid, setIsInvalid] = useState(true)
+  const [isSearchInputValid, setIsSearchInputValid] = useState(true)
 
   const {isOpen, onOpen, onClose} = useDisclosure()
 
@@ -31,7 +31,6 @@ export const Home = () => {
           'Content-Type': 'application/json',
         }, 
       }).then((res) => res.json()).then(data => {
-        console.log(data.user)
         setUser(data.user)
       })
     }
@@ -71,9 +70,46 @@ export const Home = () => {
 
 
   }, [])
- 
 
+// TODO: FIX THIS CLIPBOARD EFFECT
+// useEffect(() => {
+//     const checkClipboard = async () => {
+//       try {
+//         const text = await navigator.clipboard.readText();
+//         const spotifyUrlPattern = /^https:\/\/open\.spotify\.com\/playlist\/[a-zA-Z0-9]+/;
+//         if (spotifyUrlPattern.test(text)) {
+//           setSearchInput(text);
+//         }
+//       } catch (err) {
+//         console.error('Failed to read clipboard contents: ', err);
+//       }
+//     };
+
+//     const handleVisibilityChange = () => {
+//       if (document.visibilityState === 'visible') {
+//         setTimeout(checkClipboard, 100);  // Delay to ensure document is focused
+//       }
+//     };
+
+//     document.addEventListener('visibilitychange', handleVisibilityChange);
+
+//     return () => {
+//       document.removeEventListener('visibilitychange', handleVisibilityChange);
+//     };
+//   }, []);
+
+
+// TODO: Cleanup logic; clip whitespace at end. Fix response to invalid input
   const searchPlaylistById = async (input_url) => {
+
+    const spotifyUrlPattern = /^https:\/\/open\.spotify\.com\/playlist\/[a-zA-Z0-9]+(\?si=[a-zA-Z0-9]+)?$/;
+    if (!spotifyUrlPattern.test(input_url)) {
+      setIsSearchInputValid(false);
+      setSearchInput("");
+      return;
+    }
+
+    setIsSearchInputValid(true);
 
     const re = /playlist\/([^/]+)\?/
 
@@ -83,15 +119,16 @@ export const Home = () => {
     {
       const _id = match[1]
       const token = validateToken()
-
+      console.log('token')
       if (token) {
 
         const url = BACKEND_ENDPOINTS.FETCH_PLAYLIST + `?token=${token}&pid=${_id}`
-        
+        console.log(url)
         await fetch(url).then((res) => res.json()).then(data => 
           {
-          setPlaylist(data.data)
-          console.log('Fetched playlist: ' + _id)
+          setPlaylist(data.data);
+          console.log('Fetched playlist: ' + _id);
+          localStorage.setItem('duplify_playlist_id', _id);
         })
       } else {
         window.location.href = '/'
@@ -108,22 +145,23 @@ export const Home = () => {
         className='text-center'>
 
         <h3 className='mt-10 text-xl md:text-3xl font-semibold w-full leading-relaxed'>
-            Hi, <h2 className='inline text-primaryGreen'>{user?.display_name}</h2>. What playlists are we cloning today?
+            Hi, <span className='inline text-primaryGreen'>{user?.display_name}</span>. What playlists are we cloning today?
         </h3>
 
-        <div className='w-[100vw] mt-10 flex flex-nowrap gap-8 mx-auto justify-center'>
-         
+        <div className='w-[100vw] mt-10 flex flex-nowrap gap-8 mx-auto justify-center relative'>
           <input type='text' placeholder='Enter a playlist URL'
           value={searchInput} onChange={(e) => setSearchInput(e.target.value)}
-          className={`outline-none focus:border-primaryGreen p-1 md:p-2 rounded-xl w-4/5 md:w-1/2 text-black text-md md:text-xl font-semibold border-3 border-transparent ml-0 overflow-ellipsis`} />
-
-          <CustomButton onClickEvent={() => searchPlaylistById(searchInput)} textContent="Search" styles='h-[1/2]'/>
+          className={`outline-none focus:border-primaryGreen p-2 rounded-xl w-1/2 text-black text-md text-xl font-semibold border-3 border-transparent ml-0 text-ellipsis overflow-hidden whitespace-nowrap ${!isSearchInputValid ? 'border-red-500':'' }`}
+          />
+          <CustomButton onClickEvent={() => searchPlaylistById(searchInput)} textContent="Search"/>
+          {/* { setIsSearchInputValid ? <></> : <p className='text-blue-300'>Please enter valid playlist URL. Eg. https://open.spotify.com/playlist/....</p>} */}
         </div>
         <div className='mt-10 w-4/5 mx-auto'>
           {Object.keys(playlist).length > 0 && <Form playlist={playlist} user_id={user.id}/>}
         </div>
       </motion.div>
 
+{/* 
       <Modal isOpen={isOpen} onClose={onClose} size="md" placement='center'
       classNames={ {
         base: cn("bg-gray-800"),
@@ -139,47 +177,10 @@ export const Home = () => {
                 Looks like you entered an invalid URL! Please make sure...
                 </p>
               </ModalBody>
-              {/* <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
-                </Button>
-              </ModalFooter> */}
             </>
           )}
         </ModalContent>
-      </Modal>
+      </Modal> */}
     </>
   )
 }
-
-
- {/* <Input 
-          value={searchInput}
-          onValueChange={setSearchInput}
-          size='md'
-          variant="bordered" 
-          label="Enter Playlist URL" 
-          isClearable
-          isInvalid={false}
-          errorMessage="Invalid URL! Sample format - https://open.spotify.com/playlist/playlist-id-goes-here"
-          classNames={ 
-            {
-              base: cn("bg-white rounded-xl text-black overflow-ellipsis"),
-              // inputWrapper: cn("border-4 border-transparent focus:border-primaryGreen"),
-              label: [
-                "text-lg",
-                "font-semibold",
-              ],  
-              input: [
-                "font-semibold",
-                "text-black",
-                "text-lg",
-                "overflow-ellipsis",
-              ],
-              clearButton: cn("bg-black mr-1 p-0 scale-150")
-            }
-          }
-          /> */}

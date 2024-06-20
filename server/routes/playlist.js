@@ -4,7 +4,6 @@ const axios = require('axios')
 playlist.get('/', async (req, res) => {
 
   const { token, pid } = req.query
-
   const fetchPlaylistUrl = 'https://api.spotify.com/v1/playlists/'
 
   const axiosConfig = {
@@ -22,8 +21,7 @@ playlist.get('/', async (req, res) => {
     id,
   } = response
 
-  const projectionObject = { name, owner, tracks, id}
-
+  const projectionObject = { name, owner, tracks, id }
   res.send({
     data: projectionObject
   })
@@ -114,7 +112,7 @@ playlist.post('/create', async (req, res) => {
     const createPlaylistEndpoint = `https://api.spotify.com/v1/users/${data.user_id}/playlists`
 
     await axios.post(createPlaylistEndpoint, {
-        name: data.playlistName,
+        name: data.playlistName || "hello",
         description: data.playlistDescription,
         public: data.playlistVisibility,
     } , {

@@ -1,19 +1,19 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 import { BACKEND_ENDPOINTS } from '../Utils'
 import { CustomButton } from '../Components'
 
 export const Landing = () => {
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const test = async () => {
+  //   const test = async () => {
 
-      await fetch(BACKEND_ENDPOINTS.ROOT).then((res) => res.json()).then(data => console.log(data))
-    }
+  //     await fetch(BACKEND_ENDPOINTS.ROOT).then((res) => res.json()).then(data => console.log(data))
+  //   }
 
-    test()
-  })
+  //   test()
+  // })
 
     const fadeIn = {
         hidden: { opacity: 0 },
@@ -44,7 +44,7 @@ export const Landing = () => {
             Clone the contents of other Spotify playlists to a personal playlist!
         </motion.h1>
         <motion.div className="mt-10" initial="hidden" animate="visible" variants={fadeIn} transition={{delay: 1.5, duration: 1}}>
-          <CustomButton onClickEvent={() => OauthRedirect()} textContent="Hello"/>
+          <CustomButton onClickEvent={() => OauthRedirect()} textContent="Sign in with Spotify"/>
         </motion.div>  
     </div>
   )
