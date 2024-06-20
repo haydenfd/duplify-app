@@ -1,5 +1,6 @@
 const axios = require("axios")
 const oauth = require('express').Router()
+const client_url = require("../utils/endpointConfig")
 
 const clientId = process.env.DUPLIFY_CLIENT_ID;
 const clientSecret = process.env.DUPLIFY_CLIENT_SECRET;
@@ -50,7 +51,7 @@ oauth.get('/callback', async (req, res) => {
     const response = await axios(authOptions);
     const { access_token } = response.data;
 
-    res.redirect(`http://localhost:3000/home?access_token=${access_token}`)
+    res.redirect(`${client_url}/home?access_token=${access_token}`)
 
   } catch (error) {
     console.error('Error obtaining access token:', error);
