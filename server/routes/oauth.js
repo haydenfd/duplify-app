@@ -26,7 +26,8 @@ oauth.get('/authorize', (req, res) => {
   try {
     res.redirect(authorizeUrl);
   } catch (e) {
-    console.log(e)
+    console.log(e);
+    console.log('Failed to authorize');
   }
 });
 
