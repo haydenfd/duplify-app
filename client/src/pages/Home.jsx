@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import { validateToken, BACKEND_ENDPOINTS } from "../Utils";
 import { Form } from '../Components';
 import { CustomButton } from '../Components';
-import { Spinner, cn} from '@nextui-org/react';
+import { Spinner } from '@nextui-org/react';
+import { HOME_PAGE_ANIMATIONS } from '../Styles/animations';
 
 const isValidSpotifyUrl = (url) => {
   const spotifyUrlPattern = /^https:\/\/open\.spotify\.com\/playlist\/[a-zA-Z0-9]+(\?si=[a-zA-Z0-9]+)?$/;
@@ -109,11 +110,10 @@ export const Home = () => {
   return (
     <>
       <motion.div
-        initial={{ y: '-1000%', opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ type: 'tween', duration: 1.5 }}
+        initial={HOME_PAGE_ANIMATIONS["_div"].initial}
+        animate={HOME_PAGE_ANIMATIONS["_div"].animate}
+        transition={HOME_PAGE_ANIMATIONS["_div"].transition}
         className='text-center'>
-
         <h3 className='mt-10 text-xl md:text-3xl font-semibold w-full leading-relaxed'>
           Hi, <span className='inline text-primaryGreen'>{user?.display_name}</span>. What playlists are we cloning today?
         </h3>
