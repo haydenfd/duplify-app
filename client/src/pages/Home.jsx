@@ -1,11 +1,12 @@
 import React, {useState, useEffect } from 'react';
-import { cn, Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from '@nextui-org/react';
+import { cn, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from '@nextui-org/react';
 import { motion } from 'framer-motion';
 import {
   validateToken, 
   BACKEND_ENDPOINTS
 } from "../Utils";
 import { Form } from '../Components';
+import { CustomButton } from '../Components';
 
 export const Home = () => {
 
@@ -116,10 +117,7 @@ export const Home = () => {
           value={searchInput} onChange={(e) => setSearchInput(e.target.value)}
           className={`outline-none focus:border-primaryGreen p-1 md:p-2 rounded-xl w-4/5 md:w-1/2 text-black text-md md:text-xl font-semibold border-3 border-transparent ml-0 overflow-ellipsis`} />
 
-          <Button onPress={() => onOpen()}
-          className="outline-none bg-primaryGreen text-white font-semibold hover:bg-primaryPurple rounded-xl text-md w-1/12 h-1/12 md:text-lg md:w-1/10 md:h-1/10">
-            Search
-          </Button>
+          <CustomButton onClickEvent={() => searchPlaylistById(searchInput)} textContent="Search" styles='h-[1/2]'/>
         </div>
         <div className='mt-10 w-4/5 mx-auto'>
           {Object.keys(playlist).length > 0 && <Form playlist={playlist} user_id={user.id}/>}

@@ -44,7 +44,7 @@ export const Landing = () => {
             Clone the contents of other Spotify playlists to a personal playlist!
         </motion.h1>
         <motion.div className="mt-10" initial="hidden" animate="visible" variants={fadeIn} transition={{delay: 1.5, duration: 1}}>
-          <CustomButton onClickEvent={OauthRedirect} textContent="Hello"/>
+          <CustomButton onClickEvent={() => OauthRedirect()} textContent="Hello"/>
         </motion.div>  
     </div>
   )
