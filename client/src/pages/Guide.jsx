@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Slideshow } from '../components/Slideshow'
-import { slides } from '../utils/slideshow'
-import { validateToken } from '../utils/token'
+import {
+  SLIDE_DATA, 
+  validateToken
+} from '../Utils'
+import { Slideshow } from '../Components'
 
 export const Guide = () => {
 
@@ -26,7 +28,7 @@ export const Guide = () => {
     className='text-center'>
           <div className='text-center mt-10'>
             <h1 className='text-3xl md:text-5xl font-semibold'>How to <h1 className='text-primaryGreen inline tracking-wider'>Duplify</h1></h1>
-            <Slideshow slides={slides}/>
+            <Slideshow slides={SLIDE_DATA}/>
           </div>
       </motion.div>
     </>

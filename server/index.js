@@ -11,10 +11,13 @@ const origins = {
     origin: "*",
 }
 
-const clientId = process.env.SPOTIFY_API_CLIENT_ID
-const clientSecret = process.env.SPOTIFY_API_CLIENT_SECRET
-const redirectUri = "https://duplify-server-401911.wl.r.appspot.com/callback"
+const clientId = process.env.DUPLIFY_CLIENT_ID;
+const clientSecret = process.env.DUPLIFY_CLIENT_SECRET;
+// const redirectUri = "https://duplify-server-401911.wl.r.appspot.com/callback"
+
+const redirectUri = "http://localhost:8080/callback";
 const port = process.env.PORT || 8080
+
 
 const app = express()
 

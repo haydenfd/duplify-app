@@ -1,9 +1,11 @@
-import React, {useState, useEffect } from 'react'
-import { Form } from '../components/Form'
-import { cn, Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from '@nextui-org/react'
-import { motion } from 'framer-motion'
-import { validateToken } from '../utils/token'
-import { SERVER_ENDPOINTS } from '../utils/api'
+import React, {useState, useEffect } from 'react';
+import { cn, Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from '@nextui-org/react';
+import { motion } from 'framer-motion';
+import {
+  validateToken, 
+  BACKEND_ENDPOINTS
+} from "../Utils";
+import { Form } from '../Components';
 
 export const Home = () => {
 
@@ -20,7 +22,7 @@ export const Home = () => {
 
     if (access_token) {
 
-      const url = SERVER_ENDPOINTS.USER + `?access_token=${access_token}`
+      const url = BACKEND_ENDPOINTS.USER + `?access_token=${access_token}`
       
       await fetch(url, {
         method: 'GET', 
@@ -83,7 +85,7 @@ export const Home = () => {
 
       if (token) {
 
-        const url = SERVER_ENDPOINTS.FETCH_PLAYLIST + `?token=${token}&pid=${_id}`
+        const url = BACKEND_ENDPOINTS.FETCH_PLAYLIST + `?token=${token}&pid=${_id}`
         
         await fetch(url).then((res) => res.json()).then(data => 
           {

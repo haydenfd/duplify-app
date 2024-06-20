@@ -1,6 +1,6 @@
 import { Button } from '@nextui-org/react'
 import React from 'react'
-import { CLIENT_URL } from '../utils/api'
+import { CLIENT_URL } from '../Utils'
 
 export const NotFound = () => {
 

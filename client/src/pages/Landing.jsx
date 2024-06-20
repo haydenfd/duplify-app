@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import { motion } from 'framer-motion'
-import { Button } from '@nextui-org/react'
-import { SERVER_ENDPOINTS } from '../utils/api'
+import { BACKEND_ENDPOINTS } from '../Utils'
+import { CustomButton } from '../Components'
 
 export const Landing = () => {
 
@@ -9,7 +9,7 @@ export const Landing = () => {
 
     const test = async () => {
 
-      await fetch(SERVER_ENDPOINTS.ROOT).then((res) => res.json()).then(data => console.log(data))
+      await fetch(BACKEND_ENDPOINTS.ROOT).then((res) => res.json()).then(data => console.log(data))
     }
 
     test()
@@ -22,7 +22,7 @@ export const Landing = () => {
 
     const OauthRedirect = () => {
       
-      window.location.href= SERVER_ENDPOINTS.AUTHORIZE
+      window.location.href= BACKEND_ENDPOINTS.AUTHORIZE
     }
 
   return (
@@ -44,11 +44,7 @@ export const Landing = () => {
             Clone the contents of other Spotify playlists to a personal playlist!
         </motion.h1>
         <motion.div className="mt-10" initial="hidden" animate="visible" variants={fadeIn} transition={{delay: 1.5, duration: 1}}>
-          <Button 
-          onClick={() => OauthRedirect()}
-          className='bg-primaryGreen text-white font-semibold hover:bg-primaryPurple rounded-xl text-lg md:text-xl w-[12rem] h-[3rem] md:h-[4rem]'>
-            Login to Spotify
-          </Button>
+          <CustomButton onClickEvent={OauthRedirect} textContent="Hello"/>
         </motion.div>  
     </div>
   )

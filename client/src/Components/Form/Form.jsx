@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import {RadioGroup, Radio, cn, Button} from "@nextui-org/react";
 import { motion } from 'framer-motion'
-import { validateToken } from '../utils/token';
-import { SERVER_ENDPOINTS } from '../utils/api';
+import {
+  validateToken,
+  BACKEND_ENDPOINTS
+} from '../../Utils'
 
 export const Form = ({playlist, user_id}) => {
 
@@ -28,7 +30,7 @@ export const Form = ({playlist, user_id}) => {
 
     } else {
 
-    const url = SERVER_ENDPOINTS.CREATE_PLAYLIST + `?token=${token}&id=${playlist.id}`
+    const url = BACKEND_ENDPOINTS.CREATE_PLAYLIST + `?token=${token}&id=${playlist.id}`
     
     const body = {
       user_id,

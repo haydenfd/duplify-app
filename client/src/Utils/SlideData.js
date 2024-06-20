@@ -2,7 +2,7 @@ import Step1 from '../images/guide-step-1.png'
 import Step2 from '../images/guide-step-2.png'
 import Step3 from '../images/guide-step-3.png'
 
-export const slides = [
+export const SLIDE_DATA = [
     { 
         url: Step1,
         title: 'Step 1',
