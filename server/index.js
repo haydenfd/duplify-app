@@ -10,9 +10,9 @@ const origins = {
     origin: "*",
 }
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT;
 
-const app = express()
+const app = express();
 
 app.use(express.json())
 app.use(cors(origins))

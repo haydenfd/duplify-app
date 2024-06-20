@@ -3,7 +3,7 @@ const oauth = require('express').Router()
 
 const clientId = process.env.DUPLIFY_CLIENT_ID;
 const clientSecret = process.env.DUPLIFY_CLIENT_SECRET;
-const redirectUri = "http://localhost:8080/oauth/callback";
+const redirectUri = process.env.REDIRECT_URI;
 
 function createQueryString(params) {
   return Object.keys(params)
