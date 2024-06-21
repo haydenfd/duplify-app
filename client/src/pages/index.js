@@ -1,4 +1,11 @@
-export * from './Landing'
-export * from './Home'
-export * from './Guide'
-export * from './NotFound'
+import {Landing} from './Landing';
+import {Home} from './Home';
+import {Guide} from './Guide';
+import {NotFound} from './NotFound';
+
+export {
+    Landing,
+    Home,
+    Guide,
+    NotFound,
+};

@@ -14,11 +14,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "aws s3 sync build/ s3://duplify",
     "prod": "REACT_APP_ENV=prod npm run build && npm run deploy",
-    "dev": "REACT_APP_ENV=dev npm run start"
+    "dev": "REACT_APP_ENV=dev npm run start",
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "eslintConfig": {
     "extends": [
@@ -39,6 +40,8 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.6",
+    "@testing-library/react": "^16.0.0",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.29",
     "tailwindcss": "^3.3.3"
