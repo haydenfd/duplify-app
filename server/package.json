@@ -3,13 +3,20 @@
     "axios": "^1.7.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "supertest": "^7.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "@istanbuljs/nyc-config-babel": "^3.0.0",
+    "chai": "^5.1.1",
+    "mocha": "^10.4.0",
+    "nodemon": "^3.1.4",
+    "nyc": "^17.0.0"
   },
   "scripts": {
     "dev": "nodemon --env-file=.env.dev index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "mocha --env-file=.env.test",
+    "coverage": "nyc npm run test --env-file=.env.test"
   }
 }

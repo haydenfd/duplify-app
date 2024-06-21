@@ -22,10 +22,11 @@ app.use('/playlist', playlistRouter)
 
 
 app.get('/', async (req, res) => {
-
-  res.send({"Test" : port})
+  res.status(200).send({"Test" : port})
 })
 
 app.listen(port, () => {
     console.log(`Server active on port ${port}`);
 })
+
+module.exports = app;
