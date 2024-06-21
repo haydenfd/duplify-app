@@ -1,7 +1,7 @@
 const axios = require("axios")
 const oauth = require('express').Router()
-const client_url = require("../utils/endpointConfig")
 
+const client_url = process.env.CLIENT_REDIRECT_URL;
 const clientId = process.env.DUPLIFY_CLIENT_ID;
 const clientSecret = process.env.DUPLIFY_CLIENT_SECRET;
 const redirectUri = process.env.REDIRECT_URI;
@@ -11,7 +11,6 @@ function createQueryString(params) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
     .join('&');
 }
-
 
 oauth.get('/authorize', (req, res) => {
   const scopes = ['user-read-private', 'user-read-email', 'playlist-modify-public', 'playlist-modify-private']; 
@@ -26,7 +25,6 @@ oauth.get('/authorize', (req, res) => {
   try {
     res.redirect(authorizeUrl);
   } catch (e) {
-    console.log(e);
     console.log('Failed to authorize');
   }
 });

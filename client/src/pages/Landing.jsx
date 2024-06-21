@@ -1,25 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { BACKEND_ENDPOINTS } from '../Utils'
+import { BACKEND_ENDPOINTS, CLIENT_URL } from '../Utils'
 import { CustomButton } from '../Components'
 import { LANDING_PAGE_ANIMATIONS } from '../Styles/animations'
 
 export const Landing = () => {
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   const test = async () => {
+    // const test = async () => {
 
-  //     await fetch(BACKEND_ENDPOINTS.ROOT).then((res) => res.json()).then(data => console.log(data))
-  //   }
+    //   await fetch(BACKEND_ENDPOINTS.ROOT).then((res) => res.json()).then(data => console.log(data))
+    // }
 
-  //   test()
-  // })
-
-    // const fadeIn = {
-    //     hidden: { opacity: 0 },
-    //     visible: { opacity: 1 },
-    //   };
+    console.log(CLIENT_URL);
+  })
 
     const OauthRedirect = () => {
       

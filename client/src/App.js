@@ -15,7 +15,6 @@ import {
 import { Layout } from './Components';
 
 export function App() {
-
   return (
         <Router>
           <Routes>
