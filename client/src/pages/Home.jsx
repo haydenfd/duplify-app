@@ -102,7 +102,7 @@ export const Home = () => {
         initial={HOME_PAGE_ANIMATIONS["_div"].initial}
         animate={HOME_PAGE_ANIMATIONS["_div"].animate}
         transition={HOME_PAGE_ANIMATIONS["_div"].transition}
-        className="text-center bg-red-400 min-h-[90%] mt-8"
+        className="text-center min-h-[90%] mt-8"
       >
         <h3 className="text-xl md:text-3xl font-semibold w-full leading-relaxed">
           Hi,{" "}
