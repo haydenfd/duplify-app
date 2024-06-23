@@ -1,19 +1,7 @@
-import {
-    BACKEND_ENDPOINTS,
-    CLIENT_URL,
-} from "./ApiConfig";
+import { BACKEND_ENDPOINTS, CLIENT_URL } from "./ApiConfig";
 
-import {
-    validateToken,
-} from "./ValidateToken";
+import { validateToken } from "./ValidateToken";
 
-import {
-    SLIDE_DATA,
-} from "./SlideData";
+import { SLIDE_DATA } from "./SlideData";
 
-export {
-    SLIDE_DATA,
-    validateToken,
-    BACKEND_ENDPOINTS,
-    CLIENT_URL,
-}
+export { SLIDE_DATA, validateToken, BACKEND_ENDPOINTS, CLIENT_URL };

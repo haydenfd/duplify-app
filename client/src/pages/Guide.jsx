@@ -32,7 +32,7 @@ export const Guide = () => {
         initial={{ y: "-1000%", opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "tween", duration: 1.5 }}
-        className="text-center"
+        className="text-center mb-8"
       >
         <div className="text-center mt-10">
           <h1 className="text-3xl md:text-5xl font-semibold">
@@ -40,7 +40,7 @@ export const Guide = () => {
             <h1 className="text-primaryGreen inline tracking-wider">Duplify</h1>
           </h1>
           {/* <Slideshow slides={SLIDE_DATA}/> */}
-          <div className="w-[60%] mx-auto mt-4 max-h-[40%]">
+          <div className="w-[60%] mx-auto mt-4 max-h-[30%] mb-20">
             <Slider {...settings}>
               <div className="bg-green-600 flex flex-col">
                 <img src={Step1} alt="Step 1" />
