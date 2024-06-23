@@ -7,7 +7,10 @@ import "slick-carousel/slick/slick-theme.css";
 import { SLIDE_DATA, validateToken } from "../Utils";
 import { Slideshow } from "../Components";
 import { GuideCard } from "../Components";
-import { Step1, Step2, Step3 } from "../Images";
+import Step1 from '../Images/guide-step-1.png';
+import Step2 from '../Images/guide-step-2.png';
+import Step3 from '../Images/guide-step-3.png';
+import Step4 from '../Images/guide-step-4.png';
 
 export const Guide = () => {
   useEffect(() => {
@@ -42,32 +45,29 @@ export const Guide = () => {
           {/* <Slideshow slides={SLIDE_DATA}/> */}
           <div className="w-[60%] mx-auto mt-4 max-h-[30%] mb-20">
             <Slider {...settings}>
-              <div className="bg-green-600 flex flex-col">
+              <div className="bg-primaryPurple flex flex-col border-2 border-primaryGreen">
                 <img src={Step1} alt="Step 1" />
-                <p>
-                  Find the playlist that you'd like to clone. Click the more
-                  options button (3 dots).
+                <p className="p-2 font-semibold">
+                  Get the URL to the playlist you want to clone using "Copy link to playlist".
                 </p>
               </div>
-              <div className="bg-green-600 flex flex-col">
+              <div className="bg-primaryPurple flex flex-col border-2 border-primaryGreen">
                 <img src={Step2} alt="Step 2" />
-                <p>
-                  At the very bottom of the dropdown menu, click on Share.
-                  Choose \"Copy link to playlist\". The playlist link will be
-                  saved to your clipboard.
+                <p className="p-2 font-semibold">
+                  Copy this same link into the Search input.
                 </p>
               </div>
-              <div className="bg-green-600 flex flex-col">
+              <div className="bg-primaryPurple flex flex-col border-2 border-primaryGreen">
                 <img src={Step3} alt="Step 3" />
-                <p>Paste the URL and xxx.</p>
+                <p className="p-2 font-semibold">
+                  Give your playlist a name, an optional description, and if you want the new playlist to be public/private.
+                </p>
               </div>
-              <div className="bg-green-600 flex flex-col">
-                <h1>1</h1>
-                <h2>1</h2>
-              </div>
-              <div className="bg-green-600 flex flex-col">
-                <h1>1</h1>
-                <h2>1</h2>
+              <div className="bg-primaryPurple flex flex-col border-2 border-primaryGreen">
+                <img src={Step4} alt="Step 4" />
+                <p className="p-2 font-semibold">
+                  Close and re-open Spotify to see your new playlist!
+                </p>
               </div>
             </Slider>
           </div>
