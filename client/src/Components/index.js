@@ -3,6 +3,7 @@ import { Form } from "./Form/Form";
 import { Nav } from "./Nav/Nav";
 import { Layout } from "./Layout/Layout";
 import { Slideshow } from "./Slideshow/Slideshow";
+import { GuideCard } from "./GuideCard/GuideCard";
 
 export {
     CustomButton,
@@ -10,4 +11,5 @@ export {
     Nav,
     Layout, 
     Slideshow,
+    GuideCard,
 }
