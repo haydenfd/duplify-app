@@ -1,6 +1,8 @@
-import Step1 from '../images/guide-step-1.png'
-import Step2 from '../images/guide-step-2.png'
-import Step3 from '../images/guide-step-3.png'
+import {
+    Step1, 
+    Step2, 
+    Step3,
+} from '../Images';
 
 export const SLIDE_DATA = [
     { 

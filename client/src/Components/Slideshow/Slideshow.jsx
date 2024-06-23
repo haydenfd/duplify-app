@@ -19,7 +19,7 @@ export const Slideshow = ({ slides }) => {
   }
 
   return (
-    <div className='mx-auto my-10 h-[30rem] w-9/10 relative'>
+    <div className='mx-auto my-10 h-[45vh] w-8/10 relative'>
         <div onClick={decrementIdx}
         className="cursor-pointer absolute z-10 top-1/2 translate-y-[-50%] left-9 text-5xl hover:text-primaryGreen"> &#x276E; </div>
         <div className='bg-cover bg-center text-white rounded-md h-full w-3/4 mx-auto border-b-3 border-black' style={ { backgroundImage: `url(${slides[currentIdx].url})`}}>

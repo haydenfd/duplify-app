@@ -4,7 +4,7 @@ import {
   Landing, 
   NotFound,
   Guide,
-} from './pages';
+} from './Pages';
 
 import { 
   BrowserRouter as Router,

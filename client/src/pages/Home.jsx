@@ -57,6 +57,12 @@ export const Home = () => {
     }
   }, []);
 
+  const handleInputChange = (e) => {
+    setSearchInput(e.target.value);
+    if (isInvalid) {
+      setIsInvalid(false);
+    }
+  };
 
   const searchPlaylistById = async (input_url) => {
     if (!isValidSpotifyUrl(input_url)) {
@@ -95,13 +101,18 @@ export const Home = () => {
         </h3>
 
         <div className='w-[100vw] mt-10 flex flex-nowrap gap-8 mx-auto justify-center'>
-          <input type='text' placeholder='Enter a playlist URL'
-            value={searchInput} onChange={(e) => setSearchInput(e.target.value)}
-            className='outline-none focus:border-primaryGreen p-2 rounded-xl w-1/2 text-black text-md text-xl font-semibold border-3 border-transparent ml-0 text-ellipsis overflow-hidden whitespace-nowrap'
-          />
+          <div className='flex flex-col w-1/2'>
+            <input
+              type='text'
+              placeholder='Enter a playlist URL'
+              value={searchInput}
+              onChange={handleInputChange}
+              className={`outline-none p-2 rounded-xl w-full text-black text-md text-xl font-semibold border-3 ${isInvalid ? 'border-red-500' : 'focus:border-primaryGreen'}`}
+            />
+            {isInvalid && <p className="text-red-500 text-left mt-2 font-semibold">This isn't a valid Spotify URL!</p>}
+          </div>
           <CustomButton onClickEvent={() => searchPlaylistById(searchInput)} textContent="Search" styles='h-[1/2]' />
         </div>
-        {isInvalid && <p className="text-red-500">Please enter a valid Spotify playlist URL.</p>}
         <div className='mt-10 w-4/5 mx-auto'>
           {Object.keys(playlist).length > 0 && <Form playlist={playlist} user_id={user.id} setIsPlaylistCreationLoading={setIsPlaylistCreationLoading} />}
         </div>
