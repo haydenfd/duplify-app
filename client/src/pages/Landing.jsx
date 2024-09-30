@@ -3,8 +3,16 @@ import { motion } from "framer-motion";
 import { BACKEND_ENDPOINTS } from "../Utils";
 import { CustomButton } from "../Components";
 import { LANDING_PAGE_ANIMATIONS } from "../Styles/animations";
+import { useNavigate } from 'react-router-dom';
 
 export const Landing = () => {
+
+  const navigate = useNavigate();
+
+  const handleGuideRedirect = () => {
+    navigate('/guide');
+  };
+
   const OauthRedirect = () => {
     window.location.href = BACKEND_ENDPOINTS.AUTHORIZE;
   };
@@ -28,7 +36,7 @@ export const Landing = () => {
         Clone the contents of other Spotify playlists to a personal playlist!
       </motion.h1>
       <motion.div
-        className="mt-10"
+        className="mt-10 w-full flex flex-row gap-8 justify-center"
         initial={LANDING_PAGE_ANIMATIONS["_div"].initial}
         animate={LANDING_PAGE_ANIMATIONS["_div"].animate}
         variants={LANDING_PAGE_ANIMATIONS["_div"].variants}
@@ -37,6 +45,10 @@ export const Landing = () => {
         <CustomButton
           onClickEvent={() => OauthRedirect()}
           textContent="Sign in with Spotify"
+        />
+        <CustomButton
+          onClickEvent={() => handleGuideRedirect()}
+          textContent="How does it work?"
         />
       </motion.div>
     </div>

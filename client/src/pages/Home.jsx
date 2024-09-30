@@ -131,7 +131,7 @@ export const Home = () => {
             styles="h-[1/2]"
           />
         </div>
-        <div className="mt-10 w-4/5 mx-auto">
+        <div className="mt-28 w-3/5 mx-auto">
           {Object.keys(playlist).length > 0 && (
             <Form
               playlist={playlist}

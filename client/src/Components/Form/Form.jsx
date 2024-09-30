@@ -85,10 +85,10 @@ export const Form = ({ playlist, user_id, setIsPlaylistCreationLoading }) => {
         initial={{ x: "-100%" }}
         animate={{ x: 0 }}
         transition={{ type: "spring", duration: 1 }}
-        className="w-full bg-black border-4-black bg-opacity-60 rounded-3xl px-4 py-6 text-white text-3xl"
-        style={{ boxShadow: "0 8px 8px #1DB954, 0 3px 3px rgba(0, 0, 0, 0.5)" }}
+        className="mx-auto w-full bg-black border-4-black bg-opacity-60 rounded-3xl py-4 px-2 text-white text-3xl"
+        // style={{ boxShadow: "0 8px 8px #1DB954, 0 3px 3px rgba(0, 0, 0, 0.5)" }}
       >
-        <div className="w-full font-semibold">
+        <div className="w-full font-semibold mt-10">
           <h2 className="inline">Clone </h2>
           <h2 className="text-primaryPurple inline">{playlist?.name} </h2>
           <h2 className="inline">by </h2>
@@ -99,7 +99,7 @@ export const Form = ({ playlist, user_id, setIsPlaylistCreationLoading }) => {
             ({playlist?.tracks?.total} songs)
           </h2>
         </div>
-        <div className="my-6 flex flex-col items-center text-black relative">
+        <div className="my-10 flex flex-col items-center text-black relative">
           <div className="w-3/5 relative">
             <input
               type="text"
